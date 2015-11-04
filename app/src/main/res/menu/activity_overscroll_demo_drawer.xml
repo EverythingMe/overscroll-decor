@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/drawer_item_horiz_recyclerview"
+            android:title="Recycler-view: Horizontal"
+            />
+        <item
+            android:id="@+id/drawer_item_vert_recyclerview"
+            android:title="Recycler-view: Vertical"
+            />
+        <item
+            android:id="@+id/drawer_item_horiz_listview"
+            android:title="List-view: Horizontal"
+            />
+        <item
+            android:id="@+id/drawer_item_vert_listview"
+            android:title="List-view: Vertical"
+            />
+    </group>
+
+</menu>
