@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/color_name"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_width="100dp"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
-    android:textSize="40dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:textSize="18dp"
+    android:textColor="@android:color/black"
     android:gravity="center"
-    android:clickable="true"
-    android:background="@android:color/black"
     />

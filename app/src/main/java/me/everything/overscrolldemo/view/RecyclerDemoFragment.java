@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.Arrays;
 import java.util.List;
 
+import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
 import me.everything.android.ui.overscroll.RecyclerViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 import me.everything.overscrolldemo.R;
@@ -21,23 +22,13 @@ import me.everything.overscrolldemo.control.DemoItem;
 /**
  * Created by amit on 11/4/15.
  */
-public class VertRecyclerDemoFragment extends Fragment {
+public class RecyclerDemoFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.vert_recycler, null, false);
-
-        initRecyclerView((RecyclerView) fragmentView.findViewById(R.id.recycler_view));
-
-        return fragmentView;
-    }
-
-    private void initRecyclerView(RecyclerView recyclerView) {
-
         Resources res = getResources();
-        
-        List<DemoItem> items = Arrays.asList(
+        final List<DemoItem> items = Arrays.asList(
                 new DemoItem(res.getColor(android.R.color.holo_blue_dark), "BLUE"),
                 new DemoItem(res.getColor(android.R.color.holo_blue_light), "LIGHT BLUE"),
                 new DemoItem(res.getColor(android.R.color.holo_green_dark), "GREEN"),
@@ -48,11 +39,28 @@ public class VertRecyclerDemoFragment extends Fragment {
                 new DemoItem(res.getColor(android.R.color.holo_orange_dark), "ORANGE"),
                 new DemoItem(res.getColor(android.R.color.holo_orange_light), "LIGHT ORANGE"),
                 new DemoItem(res.getColor(android.R.color.white), "WHITE"),
-                new DemoItem(res.getColor(android.R.color.darker_gray), "GRAY"),
-                new DemoItem(res.getColor(android.R.color.black), "BLACK")
+                new DemoItem(res.getColor(android.R.color.darker_gray), "GRAY")
         );
+
+        View fragmentView = inflater.inflate(R.layout.recycler_overscroll_demo, null, false);
+        initHorizontalRecyclerView(items, (RecyclerView) fragmentView.findViewById(R.id.horizontal_recycler_view));
+        initVerticalRecyclerView(items, (RecyclerView) fragmentView.findViewById(R.id.vertical_recycler_view));
+        return fragmentView;
+    }
+
+    private void initHorizontalRecyclerView(List<DemoItem> content, RecyclerView recyclerView) {
         LayoutInflater appInflater = LayoutInflater.from(getActivity().getApplicationContext());
-        ContentAdapter adapter = new ContentAdapter(items, appInflater);
+        RecyclerView.Adapter adapter = new RecyclerAdapterHorizontal(content, appInflater);
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
+        new HorizontalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView));
+    }
+
+    private void initVerticalRecyclerView(List<DemoItem> content, RecyclerView recyclerView) {
+        LayoutInflater appInflater = LayoutInflater.from(getActivity().getApplicationContext());
+        RecyclerView.Adapter adapter = new RecyclerAdapterVertical(content, appInflater);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -61,4 +69,3 @@ public class VertRecyclerDemoFragment extends Fragment {
     }
 
 }
-

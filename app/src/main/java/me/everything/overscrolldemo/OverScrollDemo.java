@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import me.everything.overscrolldemo.view.VertRecyclerDemoFragment;
+import me.everything.overscrolldemo.view.RecyclerDemoFragment;
 
 public class OverScrollDemo extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,7 +32,9 @@ public class OverScrollDemo extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.drawer_nav);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getFragmentManager().beginTransaction().add(R.id.fragment_placeholder, new VertRecyclerDemoFragment()).commit();
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_placeholder, new RecyclerDemoFragment())
+                .commit();
     }
 
     @Override

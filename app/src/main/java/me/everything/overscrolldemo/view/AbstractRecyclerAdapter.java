@@ -13,13 +13,14 @@ import me.everything.overscrolldemo.control.DemoItem;
 /**
  * Created by amit on 11/4/15.
  */
-public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class AbstractRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int COLOR_VIEW_TYPE = 0;
 
     public static class DemoViewHolder extends RecyclerView.ViewHolder {
-        public DemoViewHolder(ViewGroup parent, LayoutInflater inflater) {
-            super(inflater.inflate(R.layout.list_item, parent, false));
+
+        public DemoViewHolder(int resId, ViewGroup parent, LayoutInflater inflater) {
+            super(inflater.inflate(resId, parent, false));
         }
 
         public void init(DemoItem item) {
@@ -28,9 +29,6 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             int color = item.getColor();
             textView.setBackgroundColor(color);
-
-            int textColor = ~(color & 0xffffff) & 0xffffffff;
-            textView.setTextColor(textColor);
         }
 
         private TextView getTextView() {
@@ -38,26 +36,20 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    private final LayoutInflater mInflater;
+    protected final LayoutInflater mInflater;
+    protected List<DemoItem> mItems;
 
-    private List<DemoItem> mItems;
-
-    public ContentAdapter(LayoutInflater inflater) {
+    protected AbstractRecyclerAdapter(LayoutInflater inflater) {
         mInflater = inflater;
     }
 
-    public ContentAdapter(List items, LayoutInflater inflater) {
-        mItems = items;
+    public AbstractRecyclerAdapter(LayoutInflater inflater, List<DemoItem> items) {
         mInflater = inflater;
+        mItems = items;
     }
 
     public void setItems(List items) {
         mItems = items;
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new DemoViewHolder(parent, mInflater);
     }
 
     @Override
@@ -77,4 +69,5 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getItemCount() {
         return mItems.size();
     }
+
 }

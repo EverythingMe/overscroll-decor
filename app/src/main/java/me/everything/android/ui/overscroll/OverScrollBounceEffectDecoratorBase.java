@@ -3,6 +3,8 @@ package me.everything.android.ui.overscroll;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.Property;
 import android.view.MotionEvent;
 import android.view.View;
@@ -233,7 +235,9 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
             }
 
             long dt = event.getEventTime() - event.getHistoricalEventTime(0);
-            mVelocity = deltaOffset / dt;
+            if (dt > 0) { // Sometimes (though rarely) dt==0 cause originally timing is in nanos, but is presented in millis.
+                mVelocity = deltaOffset / dt;
+            }
 
             translateView(view, newOffset);
 
@@ -274,7 +278,7 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
 
         @Override
         public void handleEntrance() {
-            Animator bounceBackAnim = createBounceBackAnimation();
+            Animator bounceBackAnim = createAnimator();
             bounceBackAnim.addListener(this);
 
             bounceBackAnim.start();
@@ -297,51 +301,57 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
             enterState(mIdleState);
         }
 
-        @Override
-        public void onAnimationStart(Animator animation) {
-        }
+        @Override public void onAnimationStart(Animator animation) {}
+        @Override public void onAnimationCancel(Animator animation) {}
+        @Override public void onAnimationRepeat(Animator animation) {}
 
-        @Override
-        public void onAnimationCancel(Animator animation) {
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-
-        }
-
-        protected Animator createBounceBackAnimation() {
+        protected Animator createAnimator() {
 
             final View view = mViewAdapter.getView();
 
             mAnimAttributes.init(view);
 
-            // Set up a low-duration slow-down animation in the drag direction.
+            // Set up a low-duration slow-down animation IN the drag direction.
 
-            // dt = (Vt - Vo) / a, Vt=0 ==> dt = -Vo / a
+            // Exception: If wasn't dragging in 'forward' direction (or velocity=0 -- i.e. not dragging at all),
+            // skip slow-down anim directly to the bounce-back.
+            if (mVelocity == 0f || (mVelocity < 0 && mStartAttr.mDir) || (mVelocity > 0 && !mStartAttr.mDir)) {
+                return createBounceBackAnimator(mAnimAttributes.mAbsOffset);
+            }
+
+            // dt = (Vt - Vo) / a; Vt=0 ==> dt = -Vo / a
             float slowdownDuration = -mVelocity / mDecelerateFactor;
             slowdownDuration = (slowdownDuration < 0 ? 0 : slowdownDuration); // Happens in counter-direction dragging
 
-            // dx = (Vt^2 - Vo^2) / 2a, Vt=0 ==> dx = -Vo^2 / 2a
+            // dx = (Vt^2 - Vo^2) / 2a; Vt=0 ==> dx = -Vo^2 / 2a
             float slowdownDistance = -mVelocity * mVelocity / mDoubleDecelerateFactor;
+            float slowdownEndOffset = mAnimAttributes.mAbsOffset + slowdownDistance;
 
-            ObjectAnimator slowdownAnim = ObjectAnimator.ofFloat(view, mAnimAttributes.mProperty, mAnimAttributes.mAbsOffset + slowdownDistance);
+            ObjectAnimator slowdownAnim = ObjectAnimator.ofFloat(view, mAnimAttributes.mProperty, slowdownEndOffset);
             slowdownAnim.setDuration((int) slowdownDuration);
             slowdownAnim.setInterpolator(mBounceBackInterpolator);
 
             // Set up the bounce back animation, bringing the view back into the original, pre-overscroll position (translation=0).
 
-            // Duration is proportional to the view's size.
-            float bounceBackDuration = (Math.abs(mAnimAttributes.mAbsOffset + slowdownDistance) / mAnimAttributes.mMaxOffset) * MAX_BOUNCE_BACK_DURATION_MS;
-            ObjectAnimator bounceBackAnim = ObjectAnimator.ofFloat(view, mAnimAttributes.mProperty, mStartAttr.mAbsOffset);
-            bounceBackAnim.setDuration(Math.max((int) bounceBackDuration, MIN_BOUNCE_BACK_DURATION_MS));
-            bounceBackAnim.setInterpolator(mBounceBackInterpolator);
+            ObjectAnimator bounceBackAnim = createBounceBackAnimator(slowdownEndOffset);
 
             // Play the 2 animations as a sequence.
 
-            AnimatorSet completeAnim = new AnimatorSet();
-            completeAnim.playSequentially(slowdownAnim, bounceBackAnim);
-            return completeAnim;
+            AnimatorSet wholeAnim = new AnimatorSet();
+            wholeAnim.playSequentially(slowdownAnim, bounceBackAnim);
+            return wholeAnim;
+        }
+
+        private ObjectAnimator createBounceBackAnimator(float startOffset) {
+
+            final View view = mViewAdapter.getView();
+
+            // Duration is proportional to the view's size.
+            float bounceBackDuration = (Math.abs(startOffset) / mAnimAttributes.mMaxOffset) * MAX_BOUNCE_BACK_DURATION_MS;
+            ObjectAnimator bounceBackAnim = ObjectAnimator.ofFloat(view, mAnimAttributes.mProperty, mStartAttr.mAbsOffset);
+            bounceBackAnim.setDuration(Math.max((int) bounceBackDuration, MIN_BOUNCE_BACK_DURATION_MS));
+            bounceBackAnim.setInterpolator(mBounceBackInterpolator);
+            return bounceBackAnim;
         }
     }
 
