@@ -29,17 +29,17 @@ public class RecyclerDemoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Resources res = getResources();
         final List<DemoItem> items = Arrays.asList(
+                new DemoItem(res.getColor(android.R.color.holo_purple), "PURPLE"),
                 new DemoItem(res.getColor(android.R.color.holo_blue_dark), "BLUE"),
                 new DemoItem(res.getColor(android.R.color.holo_blue_light), "LIGHT BLUE"),
+                new DemoItem(res.getColor(R.color.spectrum_cyan), "CYAN"),
                 new DemoItem(res.getColor(android.R.color.holo_green_dark), "GREEN"),
                 new DemoItem(res.getColor(android.R.color.holo_green_light), "LIGHT GREEN"),
-                new DemoItem(res.getColor(android.R.color.holo_red_dark), "RED"),
-                new DemoItem(res.getColor(android.R.color.holo_red_light), "LIGHT RED"),
-                new DemoItem(res.getColor(android.R.color.holo_purple), "PURPLE"),
-                new DemoItem(res.getColor(android.R.color.holo_orange_dark), "ORANGE"),
+                new DemoItem(res.getColor(R.color.spectrum_yellow), "YELLOW"),
                 new DemoItem(res.getColor(android.R.color.holo_orange_light), "LIGHT ORANGE"),
-                new DemoItem(res.getColor(android.R.color.white), "WHITE"),
-                new DemoItem(res.getColor(android.R.color.darker_gray), "GRAY")
+                new DemoItem(res.getColor(android.R.color.holo_orange_dark), "ORANGE"),
+                new DemoItem(res.getColor(android.R.color.holo_red_light), "LIGHT RED"),
+                new DemoItem(res.getColor(android.R.color.holo_red_dark), "RED")
         );
 
         View fragmentView = inflater.inflate(R.layout.recycler_overscroll_demo, null, false);
