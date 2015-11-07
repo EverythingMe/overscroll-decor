@@ -1,0 +1,94 @@
+package me.everything.overscrolldemo.view;
+
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.List;
+
+import me.everything.overscrolldemo.control.DemoItem;
+
+/**
+ * Created by amit on 11/4/15.
+ */
+public abstract class DemoListAdapterBase extends BaseAdapter {
+
+    private static final int COLOR_VIEW_TYPE = 0;
+
+    public static class DemoViewHolder {
+
+        TextView mTextView;
+
+        public DemoViewHolder(int resId, ViewGroup parent, LayoutInflater inflater) {
+            mTextView = (TextView) inflater.inflate(resId, parent, false);
+        }
+
+        public void init(DemoItem item) {
+            mTextView.setText(item.getColorName());
+
+            int color = item.getColor();
+            mTextView.setBackgroundColor(color);
+        }
+
+        public View getView() {
+            return mTextView;
+        }
+    }
+
+    protected final LayoutInflater mInflater;
+    protected List<DemoItem> mItems;
+
+    protected DemoListAdapterBase(LayoutInflater inflater) {
+        mInflater = inflater;
+    }
+
+    public DemoListAdapterBase(LayoutInflater inflater, List<DemoItem> items) {
+        mInflater = inflater;
+        mItems = items;
+    }
+
+    public void setItems(List items) {
+        mItems = items;
+    }
+
+    @Override
+    public int getCount() {
+        return mItems.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mItems.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        DemoViewHolder holder;
+        if (convertView == null) {
+            holder = createViewHolder(parent);
+            holder.getView().setTag(holder);
+        } else {
+            holder = (DemoViewHolder) convertView.getTag();
+        }
+
+        holder.init((DemoItem) getItem(position));
+        return holder.getView();
+    }
+
+    protected abstract DemoViewHolder createViewHolder(ViewGroup parent);
+
+    @Override
+    public int getItemViewType(int position) {
+        return COLOR_VIEW_TYPE;
+    }
+
+}

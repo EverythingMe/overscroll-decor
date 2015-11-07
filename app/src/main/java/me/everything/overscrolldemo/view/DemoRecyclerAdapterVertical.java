@@ -11,13 +11,13 @@ import me.everything.overscrolldemo.R;
 /**
  * Created by amit on 11/4/15.
  */
-public class RecyclerAdapterVertical extends AbstractRecyclerAdapter {
+public class DemoRecyclerAdapterVertical extends DemoRecyclerAdapterBase {
 
-    public RecyclerAdapterVertical(LayoutInflater inflater) {
+    public DemoRecyclerAdapterVertical(LayoutInflater inflater) {
         super(inflater);
     }
 
-    public RecyclerAdapterVertical(List items, LayoutInflater inflater) {
+    public DemoRecyclerAdapterVertical(List items, LayoutInflater inflater) {
         super(inflater, items);
     }
 

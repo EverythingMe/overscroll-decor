@@ -9,7 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import me.everything.overscrolldemo.view.RecyclerDemoFragment;
+import me.everything.overscrolldemo.view.ListViewDemoFragment;
+import me.everything.overscrolldemo.view.RecyclerViewDemoFragment;
 
 public class OverScrollDemo extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,7 +34,7 @@ public class OverScrollDemo extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getFragmentManager().beginTransaction()
-                .add(R.id.fragment_placeholder, new RecyclerDemoFragment())
+                .add(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
                 .commit();
     }
 
@@ -51,6 +52,19 @@ public class OverScrollDemo extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         final int id = item.getItemId();
+
+        switch (id) {
+            case R.id.drawer_item_recyclerview_demo:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
+                        .commit();
+                break;
+            case R.id.drawer_item_listview_demo:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_placeholder, new ListViewDemoFragment())
+                        .commit();
+                break;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

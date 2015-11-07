@@ -13,7 +13,7 @@ import me.everything.overscrolldemo.control.DemoItem;
 /**
  * Created by amit on 11/4/15.
  */
-public abstract class AbstractRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class DemoRecyclerAdapterBase extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int COLOR_VIEW_TYPE = 0;
 
@@ -39,11 +39,11 @@ public abstract class AbstractRecyclerAdapter extends RecyclerView.Adapter<Recyc
     protected final LayoutInflater mInflater;
     protected List<DemoItem> mItems;
 
-    protected AbstractRecyclerAdapter(LayoutInflater inflater) {
+    protected DemoRecyclerAdapterBase(LayoutInflater inflater) {
         mInflater = inflater;
     }
 
-    public AbstractRecyclerAdapter(LayoutInflater inflater, List<DemoItem> items) {
+    public DemoRecyclerAdapterBase(LayoutInflater inflater, List<DemoItem> items) {
         mInflater = inflater;
         mItems = items;
     }

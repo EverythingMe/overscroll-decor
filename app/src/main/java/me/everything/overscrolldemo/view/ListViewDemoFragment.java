@@ -9,11 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import java.util.Arrays;
 import java.util.List;
 
 import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
+import me.everything.android.ui.overscroll.ListViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.RecyclerViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 import me.everything.overscrolldemo.R;
@@ -22,7 +25,7 @@ import me.everything.overscrolldemo.control.DemoItem;
 /**
  * Created by amit on 11/4/15.
  */
-public class RecyclerDemoFragment extends Fragment {
+public class ListViewDemoFragment extends Fragment {
 
     @Nullable
     @Override
@@ -42,30 +45,25 @@ public class RecyclerDemoFragment extends Fragment {
                 new DemoItem(res.getColor(android.R.color.holo_red_dark), "RED")
         );
 
-        View fragmentView = inflater.inflate(R.layout.recycler_overscroll_demo, null, false);
-        initHorizontalRecyclerView(items, (RecyclerView) fragmentView.findViewById(R.id.horizontal_recycler_view));
-        initVerticalRecyclerView(items, (RecyclerView) fragmentView.findViewById(R.id.vertical_recycler_view));
+        View fragmentView = inflater.inflate(R.layout.listview_overscroll_demo, null, false);
+//        initHorizontalListView(items, (ListView) fragmentView.findViewById(R.id.horizontal_list_view));
+        initVerticalListView(items, (ListView) fragmentView.findViewById(R.id.vertical_list_view));
         return fragmentView;
     }
 
-    private void initHorizontalRecyclerView(List<DemoItem> content, RecyclerView recyclerView) {
+    private void initHorizontalListView(List<DemoItem> content, ListView listView) {
         LayoutInflater appInflater = LayoutInflater.from(getActivity().getApplicationContext());
-        RecyclerView.Adapter adapter = new RecyclerAdapterHorizontal(content, appInflater);
-        recyclerView.setAdapter(adapter);
+        ListAdapter adapter = new DemoListAdapterHorizontal(appInflater, content);
+        listView.setAdapter(adapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-
-        new HorizontalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView));
+        new HorizontalOverScrollBounceEffectDecorator(new ListViewOverScrollDecorAdapter(listView));
     }
 
-    private void initVerticalRecyclerView(List<DemoItem> content, RecyclerView recyclerView) {
+    private void initVerticalListView(List<DemoItem> content, ListView listView) {
         LayoutInflater appInflater = LayoutInflater.from(getActivity().getApplicationContext());
-        RecyclerView.Adapter adapter = new RecyclerAdapterVertical(content, appInflater);
-        recyclerView.setAdapter(adapter);
+        ListAdapter adapter = new DemoListAdapterVertical(appInflater, content);
+        listView.setAdapter(adapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
-        new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView));
+        new VerticalOverScrollBounceEffectDecorator(new ListViewOverScrollDecorAdapter(listView));
     }
-
 }
