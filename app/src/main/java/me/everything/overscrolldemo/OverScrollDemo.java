@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import me.everything.overscrolldemo.view.GridViewDemoFragment;
 import me.everything.overscrolldemo.view.ListViewDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewDemoFragment;
 
@@ -62,6 +63,11 @@ public class OverScrollDemo extends AppCompatActivity
             case R.id.drawer_item_listview_demo:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.fragment_placeholder, new ListViewDemoFragment())
+                        .commit();
+                break;
+            case R.id.drawer_item_gridview_demo:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_placeholder, new GridViewDemoFragment())
                         .commit();
                 break;
         }

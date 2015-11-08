@@ -6,11 +6,11 @@ import android.widget.AbsListView;
 /**
  * Created by amit on 11/4/15.
  */
-public class ListViewOverScrollDecorAdapter implements IOverScrollDecoratorAdapter {
+public class AbsListViewOverScrollDecorAdapter implements IOverScrollDecoratorAdapter {
 
     private final AbsListView mView;
 
-    public ListViewOverScrollDecorAdapter(AbsListView view) {
+    public AbsListViewOverScrollDecorAdapter(AbsListView view) {
         mView = view;
     }
 
@@ -30,6 +30,7 @@ public class ListViewOverScrollDecorAdapter implements IOverScrollDecoratorAdapt
     }
 
     public boolean canScrollListUp() {
+
         final int firstTop = mView.getChildAt(0).getTop();
         final int firstPosition = mView.getFirstVisiblePosition();
         return firstPosition > 0 || firstTop < mView.getListPaddingTop();

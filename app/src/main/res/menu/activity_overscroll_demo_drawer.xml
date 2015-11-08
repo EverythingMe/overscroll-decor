@@ -6,11 +6,15 @@
 
         <item
             android:id="@+id/drawer_item_recyclerview_demo"
-            android:title="Recycler View Overscroll"
+            android:title="Recycler View Demo"
             />
         <item
             android:id="@+id/drawer_item_listview_demo"
-            android:title="List View Overscroll"
+            android:title="List View Demo"
+            />
+        <item
+            android:id="@+id/drawer_item_gridview_demo"
+            android:title="Grid View Demo"
             />
     </group>
 

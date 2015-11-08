@@ -11,13 +11,13 @@ import me.everything.overscrolldemo.control.DemoItem;
 /**
  * Created by amit on 11/8/15.
  */
-public class DemoListAdapterVertical extends DemoListAdapterBase {
+public class DemoListAdapter extends DemoListAdapterBase {
 
-    protected DemoListAdapterVertical(LayoutInflater inflater) {
+    protected DemoListAdapter(LayoutInflater inflater) {
         super(inflater);
     }
 
-    public DemoListAdapterVertical(LayoutInflater inflater, List<DemoItem> items) {
+    public DemoListAdapter(LayoutInflater inflater, List<DemoItem> items) {
         super(inflater, items);
     }
 

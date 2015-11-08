@@ -24,10 +24,15 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_weight="1"
         >
-        <ListView
-            android:id="@+id/list_view"
+        <GridView
+            android:id="@+id/grid_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:gravity="center"
             />
     </FrameLayout>
 </LinearLayout>
