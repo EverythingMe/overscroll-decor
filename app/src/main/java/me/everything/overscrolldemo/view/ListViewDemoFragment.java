@@ -16,6 +16,7 @@ import java.util.List;
 import me.everything.android.ui.overscroll.AbsListViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 import me.everything.overscrolldemo.R;
+import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
 /**
@@ -26,23 +27,8 @@ public class ListViewDemoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Resources res = getResources();
-        final List<DemoItem> items = Arrays.asList(
-                new DemoItem(res.getColor(android.R.color.holo_purple), "PURPLE"),
-                new DemoItem(res.getColor(android.R.color.holo_blue_dark), "BLUE"),
-                new DemoItem(res.getColor(android.R.color.holo_blue_light), "LIGHT BLUE"),
-                new DemoItem(res.getColor(R.color.spectrum_cyan), "CYAN"),
-                new DemoItem(res.getColor(android.R.color.holo_green_dark), "GREEN"),
-                new DemoItem(res.getColor(android.R.color.holo_green_light), "LIGHT GREEN"),
-                new DemoItem(res.getColor(R.color.spectrum_yellow), "YELLOW"),
-                new DemoItem(res.getColor(android.R.color.holo_orange_light), "LIGHT ORANGE"),
-                new DemoItem(res.getColor(android.R.color.holo_orange_dark), "ORANGE"),
-                new DemoItem(res.getColor(android.R.color.holo_red_light), "LIGHT RED"),
-                new DemoItem(res.getColor(android.R.color.holo_red_dark), "RED")
-        );
-
         View fragmentView = inflater.inflate(R.layout.listview_overscroll_demo, null, false);
-        initVerticalListView(items, (ListView) fragmentView.findViewById(R.id.list_view));
+        initVerticalListView(DemoContentHelper.getSpectrumItems(getResources()), (ListView) fragmentView.findViewById(R.id.list_view));
         return fragmentView;
     }
 

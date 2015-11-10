@@ -5,16 +5,20 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/drawer_item_recyclerview_demo"
-            android:title="Recycler View Demo"
+            android:id="@+id/drawer_item_horiz_recyclerview"
+            android:title="Recycler-view: Horizontal"
             />
         <item
-            android:id="@+id/drawer_item_listview_demo"
-            android:title="List View Demo"
+            android:id="@+id/drawer_item_vert_recyclerview"
+            android:title="Recycler-view: Vertical"
             />
         <item
-            android:id="@+id/drawer_item_gridview_demo"
-            android:title="Grid View Demo"
+            android:id="@+id/drawer_item_horiz_listview"
+            android:title="List-view: Horizontal"
+            />
+        <item
+            android:id="@+id/drawer_item_vert_listview"
+            android:title="List-view: Vertical"
             />
     </group>
 

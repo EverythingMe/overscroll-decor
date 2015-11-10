@@ -13,8 +13,10 @@ import me.everything.overscrolldemo.view.GridViewDemoFragment;
 import me.everything.overscrolldemo.view.ListViewDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewDemoFragment;
 
-public class OverScrollDemo extends AppCompatActivity
+public class OverScrollDemoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class OverScrollDemo extends AppCompatActivity
         setContentView(R.layout.activity_overscroll_demo);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.grid_view_demo_title);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -35,7 +38,7 @@ public class OverScrollDemo extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getFragmentManager().beginTransaction()
-                .add(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
+                .add(R.id.fragment_placeholder, new GridViewDemoFragment())
                 .commit();
     }
 
@@ -53,22 +56,26 @@ public class OverScrollDemo extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         final int id = item.getItemId();
+        item.setChecked(true);
 
         switch (id) {
-            case R.id.drawer_item_recyclerview_demo:
+            case R.id.drawer_item_gridview_demo:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
+                        .replace(R.id.fragment_placeholder, new GridViewDemoFragment())
                         .commit();
+                getSupportActionBar().setTitle(R.string.grid_view_demo_title);
                 break;
             case R.id.drawer_item_listview_demo:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.fragment_placeholder, new ListViewDemoFragment())
                         .commit();
+                getSupportActionBar().setTitle(R.string.list_view_demo_title);
                 break;
-            case R.id.drawer_item_gridview_demo:
+            case R.id.drawer_item_recyclerview_demo:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_placeholder, new GridViewDemoFragment())
+                        .replace(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
                         .commit();
+                getSupportActionBar().setTitle(R.string.recycler_view_demo_title);
                 break;
         }
 

@@ -10,8 +10,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Vertical Scrolling"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/default_label_size"
+        android:text="@string/vert_drag_label"
+        android:lines="1"
         />
     <!--
       When over-scrolling is applied over views that don't stretch over the entire vertical region,

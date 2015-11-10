@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">OverscrollDemo</string>
 
+    <string name="drawer_title">Over-Scroll Demo App</string>
+    <string name="drawer_subtitle">EverythingMe</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="grid_view_demo_title">GridView Over-Scroll Demo</string>
+    <string name="list_view_demo_title">ListView Over-Scroll Demo</string>
+    <string name="recycler_view_demo_title">RecyclerView Over-Scroll Demo</string>
+    <string name="horiz_drag_label">⇦ Drag Horizontally ⇨</string>
+    <string name="vert_drag_label">⇳ Drag Vertically ⇳</string>
 </resources>
