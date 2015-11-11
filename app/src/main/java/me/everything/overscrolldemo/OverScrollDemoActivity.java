@@ -1,5 +1,6 @@
 package me.everything.overscrolldemo;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +12,7 @@ import android.view.MenuItem;
 
 import me.everything.overscrolldemo.view.GridViewDemoFragment;
 import me.everything.overscrolldemo.view.ListViewDemoFragment;
-import me.everything.overscrolldemo.view.MiscViewDemoFragment;
+import me.everything.overscrolldemo.view.MiscViewsDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewDemoFragment;
 import me.everything.overscrolldemo.view.ScrollViewDemoFragment;
 
@@ -62,39 +63,32 @@ public class OverScrollDemoActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.drawer_item_gridview_demo:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_placeholder, new GridViewDemoFragment())
-                        .commit();
-                getSupportActionBar().setTitle(R.string.grid_view_demo_title);
+                replaceFragment(new GridViewDemoFragment(), R.string.grid_view_demo_title);
                 break;
             case R.id.drawer_item_listview_demo:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_placeholder, new ListViewDemoFragment())
-                        .commit();
-                getSupportActionBar().setTitle(R.string.list_view_demo_title);
+                replaceFragment(new ListViewDemoFragment(), R.string.list_view_demo_title);
                 break;
             case R.id.drawer_item_recyclerview_demo:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
-                        .commit();
-                getSupportActionBar().setTitle(R.string.recycler_view_demo_title);
+                replaceFragment(new RecyclerViewDemoFragment(), R.string.recycler_view_demo_title);
                 break;
             case R.id.drawer_item_scrollview_demo:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_placeholder, new ScrollViewDemoFragment())
-                        .commit();
-                getSupportActionBar().setTitle(R.string.scroll_view_demo_title);
+                replaceFragment(new ScrollViewDemoFragment(), R.string.scroll_view_demo_title);
                 break;
             case R.id.drawer_item_misc_demo:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_placeholder, new MiscViewDemoFragment())
-                        .commit();
-                getSupportActionBar().setTitle(R.string.misc_views_demo_title);
+                replaceFragment(new MiscViewsDemoFragment(), R.string.misc_views_demo_title);
                 break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void replaceFragment(Fragment fragment, int titleResId) {
+        getFragmentManager().beginTransaction()
+                .setCustomAnimations(R.animator.fade_in_slow, R.animator.fade_out_quick)
+                .replace(R.id.fragment_placeholder, fragment)
+                .commit();
+        getSupportActionBar().setTitle(titleResId);
     }
 }

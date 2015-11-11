@@ -15,7 +15,7 @@ import me.everything.overscrolldemo.R;
 /**
  * @author amitd
  */
-public class MiscViewDemoFragment extends Fragment {
+public class MiscViewsDemoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
