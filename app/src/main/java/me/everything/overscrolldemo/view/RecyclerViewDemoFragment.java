@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
-import me.everything.android.ui.overscroll.RecyclerViewOverScrollDecorAdapter;
+import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
 /**
- * Created by amit on 11/4/15.
+ * @author amitd
  */
 public class RecyclerViewDemoFragment extends Fragment {
 
@@ -28,7 +28,7 @@ public class RecyclerViewDemoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final List<DemoItem> items = DemoContentHelper.getReverseSpectrumItems(getResources());
 
-        View fragmentView = inflater.inflate(R.layout.recycler_overscroll_demo, null, false);
+        View fragmentView = inflater.inflate(R.layout.recyclerview_overscroll_demo, null, false);
         initHorizontalRecyclerView((RecyclerView) fragmentView.findViewById(R.id.horizontal_recycler_view));
         initVerticalRecyclerView((RecyclerView) fragmentView.findViewById(R.id.vertical_recycler_view));
         return fragmentView;

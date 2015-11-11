@@ -4,7 +4,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import static me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator.DEFAULT_DECELERATE_FACTOR;
-import static me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK;
 import static me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -13,6 +12,8 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
 
 /**
  * @author amitd

@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
+
 /**
  * @author amitd
  */

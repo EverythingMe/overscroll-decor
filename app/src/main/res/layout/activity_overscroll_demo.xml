@@ -26,7 +26,7 @@
         app:headerLayout="@layout/drawer_header_overscroll_demo"
         app:menu="@menu/activity_overscroll_demo_drawer_items"
 
-        app:itemTextColor="@color/drawer_items_text"
+        app:itemBackground="@drawable/drawer_items_bkg"
         />
 
 </android.support.v4.widget.DrawerLayout>

@@ -11,7 +11,9 @@ import android.view.MenuItem;
 
 import me.everything.overscrolldemo.view.GridViewDemoFragment;
 import me.everything.overscrolldemo.view.ListViewDemoFragment;
+import me.everything.overscrolldemo.view.MiscViewDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewDemoFragment;
+import me.everything.overscrolldemo.view.ScrollViewDemoFragment;
 
 public class OverScrollDemoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -76,6 +78,18 @@ public class OverScrollDemoActivity extends AppCompatActivity
                         .replace(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
                         .commit();
                 getSupportActionBar().setTitle(R.string.recycler_view_demo_title);
+                break;
+            case R.id.drawer_item_scrollview_demo:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_placeholder, new ScrollViewDemoFragment())
+                        .commit();
+                getSupportActionBar().setTitle(R.string.scroll_view_demo_title);
+                break;
+            case R.id.drawer_item_misc_demo:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_placeholder, new MiscViewDemoFragment())
+                        .commit();
+                getSupportActionBar().setTitle(R.string.misc_views_demo_title);
                 break;
         }
 

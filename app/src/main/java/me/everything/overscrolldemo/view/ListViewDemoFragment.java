@@ -1,7 +1,6 @@
 package me.everything.overscrolldemo.view;
 
 import android.app.Fragment;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,17 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import java.util.Arrays;
 import java.util.List;
 
-import me.everything.android.ui.overscroll.AbsListViewOverScrollDecorAdapter;
+import me.everything.android.ui.overscroll.adapters.AbsListViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
 /**
- * Created by amit on 11/4/15.
+ * @author amitd
  */
 public class ListViewDemoFragment extends Fragment {
 
