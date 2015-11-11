@@ -45,9 +45,7 @@ import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorA
  * </ol>
  * </p>
  *
- *
- *
- * @author amitd
+ * @author amit
  *
  * @see RecyclerViewOverScrollDecorAdapter
  * @see IOverScrollDecoratorAdapter

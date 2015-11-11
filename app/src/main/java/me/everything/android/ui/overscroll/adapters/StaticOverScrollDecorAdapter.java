@@ -8,7 +8,7 @@ import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorat
 /**
  * A static adapter for views that are ALWAYS over-scroll-able (e.g. image view).
  *
- * @author amitd
+ * @author amit
  *
  * @see HorizontalOverScrollBounceEffectDecorator
  * @see VerticalOverScrollBounceEffectDecorator

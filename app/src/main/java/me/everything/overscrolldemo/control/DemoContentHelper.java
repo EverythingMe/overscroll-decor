@@ -8,7 +8,7 @@ import java.util.List;
 import me.everything.overscrolldemo.R;
 
 /**
- * Created by amit on 11/10/15.
+ * @author amit
  */
 public class DemoContentHelper {
 

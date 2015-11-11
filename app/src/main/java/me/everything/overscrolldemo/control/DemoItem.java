@@ -1,7 +1,7 @@
 package me.everything.overscrolldemo.control;
 
 /**
- * Created by amit on 11/4/15.
+ * @author amit
  */
 public class DemoItem {
 

@@ -19,8 +19,6 @@ import me.everything.overscrolldemo.view.ScrollViewDemoFragment;
 public class OverScrollDemoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,19 +61,19 @@ public class OverScrollDemoActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.drawer_item_gridview_demo:
-                replaceFragment(new GridViewDemoFragment(), R.string.grid_view_demo_title);
+                replaceMainFragment(new GridViewDemoFragment(), R.string.grid_view_demo_title);
                 break;
             case R.id.drawer_item_listview_demo:
-                replaceFragment(new ListViewDemoFragment(), R.string.list_view_demo_title);
+                replaceMainFragment(new ListViewDemoFragment(), R.string.list_view_demo_title);
                 break;
             case R.id.drawer_item_recyclerview_demo:
-                replaceFragment(new RecyclerViewDemoFragment(), R.string.recycler_view_demo_title);
+                replaceMainFragment(new RecyclerViewDemoFragment(), R.string.recycler_view_demo_title);
                 break;
             case R.id.drawer_item_scrollview_demo:
-                replaceFragment(new ScrollViewDemoFragment(), R.string.scroll_view_demo_title);
+                replaceMainFragment(new ScrollViewDemoFragment(), R.string.scroll_view_demo_title);
                 break;
             case R.id.drawer_item_misc_demo:
-                replaceFragment(new MiscViewsDemoFragment(), R.string.misc_views_demo_title);
+                replaceMainFragment(new MiscViewsDemoFragment(), R.string.misc_views_demo_title);
                 break;
         }
 
@@ -84,7 +82,7 @@ public class OverScrollDemoActivity extends AppCompatActivity
         return true;
     }
 
-    private void replaceFragment(Fragment fragment, int titleResId) {
+    private void replaceMainFragment(Fragment fragment, int titleResId) {
         getFragmentManager().beginTransaction()
                 .setCustomAnimations(R.animator.fade_in_slow, R.animator.fade_out_quick)
                 .replace(R.id.fragment_placeholder, fragment)

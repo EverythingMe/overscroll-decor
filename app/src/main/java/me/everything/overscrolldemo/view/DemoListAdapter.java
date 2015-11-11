@@ -9,7 +9,7 @@ import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoItem;
 
 /**
- * Created by amit on 11/8/15.
+ * @author amit
  */
 public class DemoListAdapter extends DemoListAdapterBase {
 

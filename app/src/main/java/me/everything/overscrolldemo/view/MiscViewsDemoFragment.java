@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
 
-import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
-import me.everything.android.ui.overscroll.adapters.StaticOverScrollDecorAdapter;
-import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.overscrolldemo.R;
 
 /**
@@ -22,13 +20,13 @@ public class MiscViewsDemoFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.misc_overscroll_demo, null, false);
 
         View textView = fragmentView.findViewById(R.id.demo_text);
-        new HorizontalOverScrollBounceEffectDecorator(new StaticOverScrollDecorAdapter(textView));
+        OverScrollDecoratorHelper.setUpStaticOverScroll(textView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
 
         View imageView = fragmentView.findViewById(R.id.demo_image);
-        new VerticalOverScrollBounceEffectDecorator(new StaticOverScrollDecorAdapter(imageView));
+        OverScrollDecoratorHelper.setUpStaticOverScroll(imageView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
         Chronometer chrono = (Chronometer) fragmentView.findViewById(R.id.demo_chronometer);
-        new HorizontalOverScrollBounceEffectDecorator(new StaticOverScrollDecorAdapter(chrono));
+        OverScrollDecoratorHelper.setUpStaticOverScroll(chrono, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
         chrono.start();
 
         return fragmentView;

@@ -1,6 +1,5 @@
 package me.everything.overscrolldemo.view;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import java.util.List;
 import me.everything.overscrolldemo.control.DemoItem;
 
 /**
- * Created by amit on 11/4/15.
+ * @author amit
  */
 public abstract class DemoListAdapterBase extends BaseAdapter {
 

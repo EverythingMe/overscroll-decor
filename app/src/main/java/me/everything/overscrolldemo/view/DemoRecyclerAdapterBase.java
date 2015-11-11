@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoItem;
 
 /**

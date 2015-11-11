@@ -11,8 +11,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import me.everything.android.ui.overscroll.adapters.AbsListViewOverScrollDecorAdapter;
-import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
@@ -35,6 +34,6 @@ public class ListViewDemoFragment extends Fragment {
         ListAdapter adapter = new DemoListAdapter(appInflater, content);
         listView.setAdapter(adapter);
 
-        new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapter(listView));
+        OverScrollDecoratorHelper.setUpOverScroll(listView);
     }
 }
