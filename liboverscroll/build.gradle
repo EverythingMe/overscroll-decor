@@ -1,20 +1,10 @@
-apply plugin: 'com.android.application'
-
-repositories {
-    mavenCentral()
-
-    // Enable local-aar references (under ./libs)
-    flatDir {
-        dirs 'libs'
-    }
-}
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 22
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "me.everything.overscrolldemo"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -30,11 +20,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    // Note: This is a local-ref (aar manually copied to ./libs).
-    compile "me.everything:liboverscroll-release:1.0.0@aar"
-
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:recyclerview-v7:22.2.1'
+
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:1.9.5"
+    testCompile "org.robolectric:robolectric:3.0"
 }

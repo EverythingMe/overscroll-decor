@@ -3,17 +3,25 @@ package me.everything.android.ui.overscroll;
 import android.view.MotionEvent;
 import android.view.View;
 
-import static me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator.DEFAULT_DECELERATE_FACTOR;
-import static me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
+
+import static me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator.DEFAULT_DECELERATE_FACTOR;
+import static me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.anyFloat;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author amitd

@@ -2,7 +2,6 @@ package me.everything.android.ui.overscroll.adapters;
 
 import android.view.View;
 import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
 
 import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
