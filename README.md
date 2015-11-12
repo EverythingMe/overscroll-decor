@@ -75,6 +75,14 @@ new HorizontalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAda
 // ListView (vertical)
 ListView listView = (ListView) findViewById(R.id.list_view);
 new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapter(listView));
+
+// GridView (vertical)
+GridView gridView = (GridView) findViewById(R.id.grid_view);
+new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapter(gridView));
+
+// A simple TextView - horizontal
+View textView = findViewById(R.id.title);
+new HorizontalOverScrollBounceEffectDecorator(new StaticOverScrollDecorAdapter(view));
 ```
     
 ## Custom Views
@@ -105,3 +113,29 @@ new VerticalOverScrollBounceEffectDecorator(new IOverScrollDecoratorAdapter() {
     }
 });
 ```
+
+## Effect Behavior Configuration
+
+```java
+
+/// Make over-scroll applied over a list-view feel more 'stiff'
+new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapter(view),
+        5f, // Default is 3
+        VerticalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK,
+        VerticalOverScrollBounceEffectDecorator.DEFAULT_DECELERATE_FACTOR);
+                
+// Make over-scroll applied over a list-view bounce-back more softly
+new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapter(view),
+        VerticalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD,
+        VerticalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK,
+        -1f // Default is -2
+        );
+
+```
+
+## Credits
+
+App icons by <a href="http://somerandomdude.com/work/iconic/">P.J. Onori</a>,
+<a href="http://graphicriver.net/item/wirecons-vector-icons/4586710?ref=tmthymllr">Timothy Miller</a>,
+<a href="http://icons4android.com">Icons4Android</a>, 
+<a href="http://icons8.com/android-icons">Icons8.com</a>
