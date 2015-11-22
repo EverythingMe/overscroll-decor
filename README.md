@@ -1,8 +1,9 @@
 
-# Over-Scroll Support For RecyclerView, ListView, GridView, ScrollView ...
+# Over-Scroll Support For Android's RecyclerView, ListView, GridView, ScrollView ...
  
-The library provides an iOS-like over-scrolling effect for many Android native views, and allows
-for easy expansion to support custom views as well.
+The library provides an iOS-like over-scrolling effect for many Android native views. It also allows for very easy expansion to support custom views.
+
+The core effect classes are loose-[decorators](https://en.wikipedia.org/wiki/Decorator_pattern) of Android views, and are thus decoupled from the actual view classes' implementations. That allows developers to apply the effect over views while keeping them as untampered 'black-boxes'. Namely, it allows for keeping important optimizations such as view-recycling intact.
 
 ![RecyclerView demo](recyclerview_demo.gif)
 
