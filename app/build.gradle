@@ -2,11 +2,6 @@ apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
-
-    // Enable local-aar references (under ./libs)
-    flatDir {
-        dirs 'libs'
-    }
 }
 
 android {
@@ -29,12 +24,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    // Note: This is a local-ref (aar manually copied to ./libs).
-    compile "me.everything:liboverscroll-release:1.0.0@aar"
-
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:recyclerview-v7:22.2.1'
+    compile project(':liboverscroll')
 }
