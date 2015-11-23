@@ -12,8 +12,17 @@ The core effect classes are loose-[decorators](https://en.wikipedia.org/wiki/Dec
 Add the following to your module's `build.gradle` file:
 
 ```groovy
+repositories {
+    // ...
+    
+    maven {
+        url 'https://dl.bintray.com/und0/maven/'
+    }
+}
+
 dependencies {
     // ...
+    
     compile 'me.everything:overscroll-decor-android:1.0.0'
 }
 ```
