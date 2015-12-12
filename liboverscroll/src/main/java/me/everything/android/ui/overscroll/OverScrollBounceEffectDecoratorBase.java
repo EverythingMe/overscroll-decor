@@ -246,7 +246,7 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
         @Override
         public boolean handleUpOrCancelTouchEvent(MotionEvent event) {
             enterState(mBounceBackState);
-            return false;
+            return true;
         }
 
         @Override
