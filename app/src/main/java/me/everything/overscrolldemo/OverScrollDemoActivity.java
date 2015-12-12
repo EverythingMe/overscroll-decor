@@ -38,9 +38,11 @@ public class OverScrollDemoActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.drawer_nav);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getFragmentManager().beginTransaction()
-                .add(R.id.fragment_placeholder, new GridViewDemoFragment())
-                .commit();
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.fragment_placeholder, new GridViewDemoFragment())
+                    .commit();
+        }
     }
 
     @Override
