@@ -3,9 +3,8 @@ package me.everything.android.ui.overscroll.adapters;
 import android.graphics.Canvas;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.List;
@@ -21,30 +20,59 @@ import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorat
  */
 public class RecyclerViewOverScrollDecorAdapter implements IOverScrollDecoratorAdapter {
 
+    /**
+     * A delegation of the adapter implementation of this view that should provide the processing
+     * of {@link #isInAbsoluteStart()} and {@link #isInAbsoluteEnd()}. Essentially needed simply
+     * because the implementation depends on the layout manager implementation being used.
+     */
+    protected interface Impl {
+        boolean isInAbsoluteStart();
+        boolean isInAbsoluteEnd();
+    }
+
     protected final RecyclerView mRecyclerView;
-    protected final LinearLayoutManager mLayoutManager;
+    protected final Impl mImpl;
 
     protected boolean mIsItemTouchInEffect = false;
 
     public RecyclerViewOverScrollDecorAdapter(RecyclerView recyclerView) {
-        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager == false) {
-            throw new IllegalArgumentException("Recycler views with non-linear layout managers are not supported by this adapter. Consider implementing a new adapter, instead");
-        }
 
         mRecyclerView = recyclerView;
-        mLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+        final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof LinearLayoutManager) {
+            mImpl = new ImplLinearLayout(recyclerView, (LinearLayoutManager) layoutManager);
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            mImpl = new ImplStaggeredGridLayout(recyclerView, (StaggeredGridLayoutManager) layoutManager);
+        } else {
+            throw new IllegalArgumentException("Recycler views with custom layout managers are not supported by this adapter out of the box." +
+                    "Try implementing and providing an explicit 'impl' parameter to the other c'tors, or otherwise create a custom adapter subclass of your own.");
+        }
+    }
+
+    public RecyclerViewOverScrollDecorAdapter(RecyclerView recyclerView, Impl impl) {
+        mRecyclerView = recyclerView;
+        mImpl = impl;
     }
 
     public RecyclerViewOverScrollDecorAdapter(RecyclerView recyclerView, ItemTouchHelper.Callback itemTouchHelperCallback) {
         this(recyclerView);
+        setUpTouchHelperCallback(itemTouchHelperCallback);
+    }
 
+    public RecyclerViewOverScrollDecorAdapter(RecyclerView recyclerView, Impl impl, ItemTouchHelper.Callback itemTouchHelperCallback) {
+        this(recyclerView, impl);
+        setUpTouchHelperCallback(itemTouchHelperCallback);
+    }
+
+    protected void setUpTouchHelperCallback(final ItemTouchHelper.Callback itemTouchHelperCallback) {
         new ItemTouchHelper(new ItemTouchHelperCallbackWrapper(itemTouchHelperCallback) {
             @Override
             public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
                 mIsItemTouchInEffect = actionState != 0;
                 super.onSelectedChanged(viewHolder, actionState);
             }
-        }).attachToRecyclerView(recyclerView);
+        }).attachToRecyclerView(mRecyclerView);
     }
 
     @Override
@@ -54,12 +82,67 @@ public class RecyclerViewOverScrollDecorAdapter implements IOverScrollDecoratorA
 
     @Override
     public boolean isInAbsoluteStart() {
-        return !mIsItemTouchInEffect && mLayoutManager.findFirstCompletelyVisibleItemPosition() == 0;
+        return !mIsItemTouchInEffect && mImpl.isInAbsoluteStart();
     }
 
     @Override
     public boolean isInAbsoluteEnd() {
-        return !mIsItemTouchInEffect && mLayoutManager.findLastCompletelyVisibleItemPosition() == (mRecyclerView.getAdapter().getItemCount() - 1);
+        return !mIsItemTouchInEffect && mImpl.isInAbsoluteEnd();
+    }
+
+    public static class ImplLinearLayout implements Impl {
+
+        private final RecyclerView mRecyclerView;
+        private final LinearLayoutManager mLayoutManager;
+
+        public ImplLinearLayout(RecyclerView recyclerView, LinearLayoutManager layoutManager) {
+            mRecyclerView = recyclerView;
+            mLayoutManager = layoutManager;
+        }
+
+        @Override
+        public boolean isInAbsoluteStart() {
+            return mLayoutManager.findFirstCompletelyVisibleItemPosition() == 0;
+        }
+
+        @Override
+        public boolean isInAbsoluteEnd() {
+            return mLayoutManager.findLastCompletelyVisibleItemPosition() == (mRecyclerView.getAdapter().getItemCount() - 1);
+        }
+    }
+
+    protected static class ImplStaggeredGridLayout implements Impl {
+
+        private final RecyclerView mRecyclerView;
+        private final StaggeredGridLayoutManager mLayoutManager;
+        final int[] mVisiblePositionsBuffer;
+
+        public ImplStaggeredGridLayout(RecyclerView recyclerView, StaggeredGridLayoutManager layoutManager) {
+            mRecyclerView = recyclerView;
+            mLayoutManager = layoutManager;
+
+            final int spanCount = layoutManager.getSpanCount();
+            mVisiblePositionsBuffer = new int[spanCount];
+        }
+
+        @Override
+        public boolean isInAbsoluteStart() {
+            mLayoutManager.findFirstCompletelyVisibleItemPositions(mVisiblePositionsBuffer);
+            return mVisiblePositionsBuffer[0] == 0;
+        }
+
+        @Override
+        public boolean isInAbsoluteEnd() {
+            mLayoutManager.findLastCompletelyVisibleItemPositions(mVisiblePositionsBuffer);
+
+            final int lastItemPos = mRecyclerView.getAdapter().getItemCount() - 1;
+            for (int item : mVisiblePositionsBuffer) {
+                if (item == lastItemPos) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     private static class ItemTouchHelperCallbackWrapper extends ItemTouchHelper.Callback {

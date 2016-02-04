@@ -10,6 +10,7 @@
     <string name="grid_view_demo_title">GridView Over-Scroll Demo</string>
     <string name="list_view_demo_title">ListView Over-Scroll Demo</string>
     <string name="recycler_view_demo_title">RecyclerView Over-Scroll Demo</string>
+    <string name="recycler_view_staggered_grid_demo_title">RecyclerView St.Grid Over-Scroll Demo</string>
     <string name="scroll_view_demo_title">ScrollView Over-Scroll Demo</string>
     <string name="misc_views_demo_title">Misc. Over-Scroll Demo</string>
 

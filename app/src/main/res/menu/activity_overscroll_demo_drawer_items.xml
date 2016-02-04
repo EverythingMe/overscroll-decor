@@ -21,6 +21,11 @@
             android:title="RecyclerView Demo"
             />
         <item
+            android:id="@+id/drawer_item_recyclerview_staggered_grid_demo"
+            android:icon="@drawable/ic_recycler"
+            android:title="RecyclerView - St.Grid Demo"
+            />
+        <item
             android:id="@+id/drawer_item_scrollview_demo"
             android:icon="@drawable/ic_scroller"
             android:title="ScrollView Demo"
