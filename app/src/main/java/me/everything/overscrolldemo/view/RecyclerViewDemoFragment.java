@@ -51,6 +51,7 @@ public class RecyclerViewDemoFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
+        // Set-up of recycler-view's native item swiping.
         ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
@@ -63,7 +64,7 @@ public class RecyclerViewDemoFragment extends Fragment {
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
                 AlertDialog dialog = new AlertDialog.Builder(getActivity())
                         .setTitle("Item swiping is supported!")
                         .setMessage("Recycler-view's native item swiping and the over-scrolling effect can co-exist! But, to get them to work WELL -- please apply the effect using the dedicated helper method!")
@@ -77,9 +78,7 @@ public class RecyclerViewDemoFragment extends Fragment {
                 dialog.show();
             }
         };
-// TODO 'unleash' when lib 1.0.1 is out
-//        new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
-        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+        new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
     }
 
 }

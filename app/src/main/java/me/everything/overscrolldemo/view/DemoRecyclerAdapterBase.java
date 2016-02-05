@@ -10,7 +10,7 @@ import java.util.List;
 import me.everything.overscrolldemo.control.DemoItem;
 
 /**
- * Created by amit on 11/4/15.
+ * @author amit
  */
 public abstract class DemoRecyclerAdapterBase extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
