@@ -1,7 +1,7 @@
 
 # Over-Scroll Support For Android's RecyclerView, ListView, GridView, ScrollView ...
  
-The library provides an iOS-like over-scrolling effect for many Android native views. It also allows for very easy expansion to support custom views.
+The library provides an iOS-like over-scrolling effect applicable over almost all Android native scrollable views. It is also built to allow for very easy adaptation to support custom views.
 
 The core effect classes are loose-[decorators](https://en.wikipedia.org/wiki/Decorator_pattern) of Android views, and are thus decoupled from the actual view classes' implementations. That allows developers to apply the effect over views while keeping them as untampered 'black-boxes'. Namely, it allows for keeping important optimizations such as view-recycling intact.
 
@@ -15,13 +15,16 @@ Add the following to your module's `build.gradle` file:
 dependencies {
     // ...
     
-    compile 'me.everything:overscroll-decor-android:1.0.0'
+    compile 'me.everything:overscroll-decor-android:1.0.1'
 }
 ```
 
 # Usage
 
 ### RecyclerView
+
+Supports both linear and staggered-grid layout managers (i.e. all native Android layouts).
+Can be easily adapted to support custom layout managers.
 
 ```java
 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -56,7 +59,7 @@ HorizontalScrollView horizontalScrollView = (HorizontalScrollView) findViewById(
 OverScrollDecoratorHelper.setUpOverScroll(horizontalScrollView);
 ```
 
-### Any View (Always Over-Scroll Ready)
+### Any View - Text, Image... (Always Over-Scroll Ready)
 
 ```java
 View view = fragmentView.findViewById(R.id.demo_view);
@@ -86,6 +89,27 @@ new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapte
 View textView = findViewById(R.id.title);
 new HorizontalOverScrollBounceEffectDecorator(new StaticOverScrollDecorAdapter(view));
 ```
+
+### RecyclerView with [ItemTouchHelper](http://developer.android.com/reference/android/support/v7/widget/helper/ItemTouchHelper.html) based swiping / dragging
+As of version 1.0.1, the effect can work smoothly with the RecyclerView's built-in mechanism for items swiping and dragging (based on [ItemTouchHelper](http://developer.android.com/reference/android/support/v7/widget/helper/ItemTouchHelper.html)). BUT, it requires some (very little) explicit configuration work:
+
+```java
+// INSTEAD of attaching a touch-helper & callback directly, like you normally would:
+RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+ItemTouchHelper.Callback myCallback = new ItemTouchHelper.Callback() {
+	...
+};
+ItemTouchHelper myHelper = new ItemTouchHelper(myCallback);
+myHelper.attachToRecyclerView(recyclerView);
+
+// Use the dedicated adapter c'tor:
+new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, myCallback));
+
+```
+
+For more info on the swiping / dragging mechanism, try [this useful tutorial](https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf).
+
+
     
 ## Custom Views
 
