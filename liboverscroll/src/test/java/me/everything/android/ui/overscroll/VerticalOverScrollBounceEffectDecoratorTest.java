@@ -11,17 +11,14 @@ import org.robolectric.annotation.Config;
 
 import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
 
+import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG;
+import static me.everything.android.ui.overscroll.IOverScrollState.STATE_IDLE;
 import static me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator.DEFAULT_DECELERATE_FACTOR;
 import static me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.anyFloat;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 /**
  * @author amitd
@@ -32,12 +29,17 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
 
     View mView;
     IOverScrollDecoratorAdapter mViewAdapter;
+    IOverScrollStateListener mStateListener;
+    IOverScrollUpdateListener mUpdateListener;
 
     @Before
     public void setUp() throws Exception {
         mView = mock(View.class);
         mViewAdapter = mock(IOverScrollDecoratorAdapter.class);
         when(mViewAdapter.getView()).thenReturn(mView);
+
+        mStateListener = mock(IOverScrollStateListener.class);
+        mUpdateListener = mock(IOverScrollUpdateListener.class);
     }
 
     /*
@@ -65,6 +67,9 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationX(anyFloat());
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
+
+        verify(mStateListener, never()).onOverScrollStateChange(any(View.class), anyInt());
+        verify(mUpdateListener, never()).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
     }
 
     @Test
@@ -89,6 +94,9 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationY(expectedTransY);
         verify(mView, never()).setTranslationX(anyFloat());
         assertTrue(ret);
+
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_DRAG));
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(expectedTransY));
     }
 
     @Test
@@ -113,6 +121,9 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationY(expectedTransY);
         verify(mView, never()).setTranslationX(anyFloat());
         assertTrue(ret);
+
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_DRAG));
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(expectedTransY));
     }
 
     @Test
@@ -136,6 +147,9 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationX(anyFloat());
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
+
+        verify(mStateListener, never()).onOverScrollStateChange(any(View.class), anyInt());
+        verify(mUpdateListener, never()).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
     }
 
     @Test
@@ -159,6 +173,9 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationX(anyFloat());
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
+
+        verify(mStateListener, never()).onOverScrollStateChange(any(View.class), anyInt());
+        verify(mUpdateListener, never()).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
     }
 
     @Test
@@ -181,14 +198,23 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
 
         // Act
 
-        boolean ret = uut.onTouch(mView, event2);
+        final boolean ret = uut.onTouch(mView, event2);
 
         // Assert
 
-        float expectedTransY = (event2.getY() - event2.getHistoricalY(0)) / DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
-        verify(mView).setTranslationY(expectedTransY);
+        final float expectedTransY1 = (event1.getY() - event1.getHistoricalY(0)) / DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
+        final float expectedTransY2 = (event2.getY() - event2.getHistoricalY(0)) / DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
+        verify(mView).setTranslationY(expectedTransY2);
         verify(mView, never()).setTranslationX(anyFloat());
         assertTrue(ret);
+
+        // State-change listener called only once?
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_DRAG));
+        verify(mStateListener).onOverScrollStateChange(any(View.class), anyInt());
+        // Update-listener called exactly twice?
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(expectedTransY1));
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(expectedTransY2));
+        verify(mUpdateListener, times(2)).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
     }
 
     @Test
@@ -211,14 +237,23 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
 
         // Act
 
-        boolean ret = uut.onTouch(mView, event2);
+        final boolean ret = uut.onTouch(mView, event2);
 
         // Assert
 
-        float expectedTransY = (event2.getY() - event2.getHistoricalY(0)) / DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
-        verify(mView).setTranslationY(expectedTransY);
+        final float expectedTransY1 = (event1.getY() - event1.getHistoricalY(0)) / DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
+        final float expectedTransY2 = (event2.getY() - event2.getHistoricalY(0)) / DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
+        verify(mView).setTranslationY(expectedTransY2);
         verify(mView, never()).setTranslationX(anyFloat());
         assertTrue(ret);
+
+        // State-change listener called only once?
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_DRAG));
+        verify(mStateListener).onOverScrollStateChange(any(View.class), anyInt());
+        // Update-listener called exactly twice?
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(expectedTransY1));
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(expectedTransY2));
+        verify(mUpdateListener, times(2)).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
     }
 
     /**
@@ -260,6 +295,14 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationY(expectedTransY);
         verify(mView, never()).setTranslationX(anyFloat());
         assertTrue(ret);
+
+        // State-change listener called only once?
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_DRAG));
+        verify(mStateListener).onOverScrollStateChange(any(View.class), anyInt());
+        // Update-listener called exactly twice?
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(startTransY));
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(expectedTransY));
+        verify(mUpdateListener, times(2)).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
     }
 
     /**
@@ -301,6 +344,100 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationY(expectedTransY);
         verify(mView, never()).setTranslationX(anyFloat());
         assertTrue(ret);
+
+        // State-change listener called only once?
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_DRAG));
+        verify(mStateListener).onOverScrollStateChange(any(View.class), anyInt());
+        // Update-listener called exactly twice?
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(startTransY));
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(expectedTransY));
+        verify(mUpdateListener, times(2)).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
+    }
+
+    @Test
+    public void onTouchMoveAction_undragWhenDownOverscrolled_endOverscrolling() throws Exception {
+
+        // Arrange
+
+        // In left & right tests we use equal ratios to avoid the effect's under-scroll handling
+        final float touchDragRatioFwd = 3f;
+        final float touchDragRatioBck = 3f;
+
+        // Bring UUT to a downwards-overscroll state
+        when(mViewAdapter.isInAbsoluteStart()).thenReturn(true);
+        when(mViewAdapter.isInAbsoluteEnd()).thenReturn(false);
+
+        VerticalOverScrollBounceEffectDecorator uut = getUUT(touchDragRatioFwd, touchDragRatioBck);
+        MotionEvent eventMoveDown = createLongDownwardsMoveEvent();
+        uut.onTouch(mView, eventMoveDown);
+        reset(mView);
+        float startTransX = (eventMoveDown.getX() - eventMoveDown.getHistoricalX(0)) / touchDragRatioFwd;
+        when(mView.getTranslationX()).thenReturn(startTransX);
+
+        // Create the (negative) upwards-drag event
+        MotionEvent eventMoveUp = createLongUpwardsMoveEvent();
+
+        // Act
+
+        boolean ret = uut.onTouch(mView, eventMoveUp);
+
+        // Assert
+
+        verify(mView, never()).setTranslationX(anyFloat());
+        verify(mView).setTranslationY(0);
+        assertTrue(ret);
+
+        // State-change listener invoked to say drag-on and drag-off (idle).
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_DRAG));
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_IDLE));
+        verify(mStateListener, times(2)).onOverScrollStateChange(any(View.class), anyInt());
+        // Update-listener called exactly twice?
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(startTransX));
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(0f));
+        verify(mUpdateListener, times(2)).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
+    }
+
+    @Test
+    public void onTouchMoveAction_undragWhenUpOverscrolled_endOverscrolling() throws Exception {
+
+        // Arrange
+
+        // In left & right tests we use equal ratios to avoid the effect's under-scroll handling
+        final float touchDragRatioFwd = 3f;
+        final float touchDragRatioBck = 3f;
+
+        // Bring UUT to a left-overscroll state
+        when(mViewAdapter.isInAbsoluteStart()).thenReturn(false);
+        when(mViewAdapter.isInAbsoluteEnd()).thenReturn(true);
+
+        VerticalOverScrollBounceEffectDecorator uut = getUUT(touchDragRatioFwd, touchDragRatioBck);
+        MotionEvent eventMoveUp = createLongUpwardsMoveEvent();
+        uut.onTouch(mView, eventMoveUp);
+        reset(mView);
+        float startTransX = (eventMoveUp.getX() - eventMoveUp.getHistoricalX(0)) / touchDragRatioFwd;
+        when(mView.getTranslationX()).thenReturn(startTransX);
+
+        // Create the (negative) downwards-drag event
+        MotionEvent eventMoveDown = createLongDownwardsMoveEvent();
+
+        // Act
+
+        boolean ret = uut.onTouch(mView, eventMoveDown);
+
+        // Assert
+
+        verify(mView, never()).setTranslationX(anyFloat());
+        verify(mView).setTranslationY(0);
+        assertTrue(ret);
+
+        // State-change listener invoked to say drag-on and drag-off (idle).
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_DRAG));
+        verify(mStateListener).onOverScrollStateChange(eq(mView), eq(STATE_IDLE));
+        verify(mStateListener, times(2)).onOverScrollStateChange(any(View.class), anyInt());
+        // Update-listener called exactly twice?
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(startTransX));
+        verify(mUpdateListener).onOverScrollUpdate(eq(mView), eq(STATE_DRAG), eq(0f));
+        verify(mUpdateListener, times(2)).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
     }
 
     /*
@@ -328,6 +465,9 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationX(anyFloat());
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
+
+        verify(mStateListener, never()).onOverScrollStateChange(any(View.class), anyInt());
+        verify(mUpdateListener, never()).onOverScrollUpdate(any(View.class), anyInt(), anyFloat());
     }
 
     protected MotionEvent createShortDownwardsMoveEvent() {
@@ -338,10 +478,10 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
         when(event.getX(0)).thenReturn(200f);
         when(event.getY(0)).thenReturn(100f);
         when(event.getHistorySize()).thenReturn(1);
-        when(event.getHistoricalX(eq(0))).thenReturn(180f);
-        when(event.getHistoricalY(eq(0))).thenReturn(90f);
-        when(event.getHistoricalX(eq(0), eq(0))).thenReturn(180f);
-        when(event.getHistoricalY(eq(0), eq(0))).thenReturn(90f);
+        when(event.getHistoricalX(eq(0))).thenReturn(190f);
+        when(event.getHistoricalY(eq(0))).thenReturn(80f);
+        when(event.getHistoricalX(eq(0), eq(0))).thenReturn(190f);
+        when(event.getHistoricalY(eq(0), eq(0))).thenReturn(80f);
         return event;
     }
 
@@ -378,15 +518,15 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
     protected MotionEvent createLongUpwardsMoveEvent() {
         MotionEvent event = mock(MotionEvent.class);
         when(event.getAction()).thenReturn(MotionEvent.ACTION_MOVE);
-        when(event.getX()).thenReturn(150f);
-        when(event.getY()).thenReturn(50f);
-        when(event.getX(0)).thenReturn(150f);
-        when(event.getY(0)).thenReturn(50f);
+        when(event.getX()).thenReturn(200f);
+        when(event.getY()).thenReturn(100f);
+        when(event.getX(0)).thenReturn(200f);
+        when(event.getY(0)).thenReturn(100f);
         when(event.getHistorySize()).thenReturn(1);
-        when(event.getHistoricalX(eq(0))).thenReturn(200f);
-        when(event.getHistoricalY(eq(0))).thenReturn(100f);
-        when(event.getHistoricalX(eq(0), eq(0))).thenReturn(200f);
-        when(event.getHistoricalY(eq(0), eq(0))).thenReturn(100f);
+        when(event.getHistoricalX(eq(0))).thenReturn(250f);
+        when(event.getHistoricalY(eq(0))).thenReturn(150f);
+        when(event.getHistoricalX(eq(0), eq(0))).thenReturn(250f);
+        when(event.getHistoricalY(eq(0), eq(0))).thenReturn(150f);
         return event;
     }
 
@@ -397,10 +537,16 @@ public class VerticalOverScrollBounceEffectDecoratorTest {
     }
 
     protected VerticalOverScrollBounceEffectDecorator getUUT() {
-        return new VerticalOverScrollBounceEffectDecorator(mViewAdapter);
+        VerticalOverScrollBounceEffectDecorator uut = new VerticalOverScrollBounceEffectDecorator(mViewAdapter);
+        uut.setOverScrollStateListener(mStateListener);
+        uut.setOverScrollUpdateListener(mUpdateListener);
+        return uut;
     }
 
     protected VerticalOverScrollBounceEffectDecorator getUUT(float touchDragRatioFwd, float touchDragRatioBck) {
-        return new VerticalOverScrollBounceEffectDecorator(mViewAdapter, touchDragRatioFwd, touchDragRatioBck, DEFAULT_DECELERATE_FACTOR);
+        VerticalOverScrollBounceEffectDecorator uut = new VerticalOverScrollBounceEffectDecorator(mViewAdapter, touchDragRatioFwd, touchDragRatioBck, DEFAULT_DECELERATE_FACTOR);
+        uut.setOverScrollStateListener(mStateListener);
+        uut.setOverScrollUpdateListener(mUpdateListener);
+        return uut;
     }
 }
