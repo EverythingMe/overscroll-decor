@@ -1,7 +1,5 @@
 package me.everything.android.ui.overscroll;
 
-import android.view.View;
-
 /**
  * @author amit
  */
@@ -9,11 +7,11 @@ public interface ListenerStubs {
 
     class OverScrollStateListenerStub implements IOverScrollStateListener {
         @Override
-        public void onOverScrollStateChange(View view, int newState) { }
+        public void onOverScrollStateChange(IOverScrollEffect effect, int newState) { }
     }
 
     class OverScrollUpdateListenerStub implements IOverScrollUpdateListener {
         @Override
-        public void onOverScrollUpdate(View view, int state, float offset) { }
+        public void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset) { }
     }
 }

@@ -4,5 +4,6 @@
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="default_label_size">30sp</dimen>
+    <dimen name="default_label_size">26sp</dimen>
+    <dimen name="default_subtitle_size">22sp</dimen>
 </resources>

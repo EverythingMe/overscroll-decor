@@ -11,9 +11,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import me.everything.android.ui.overscroll.IOverScrollEffect;
+import me.everything.android.ui.overscroll.IOverScrollState;
+import me.everything.android.ui.overscroll.IOverScrollStateListener;
+import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
@@ -25,10 +30,17 @@ import me.everything.overscrolldemo.control.DemoContentHelper;
  */
 public class RecyclerViewDemoFragment extends Fragment {
 
+    private TextView mHorizScrollMeasure;
+    private TextView mVertScrollMeasure;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.recyclerview_overscroll_demo, null, false);
+
+        mHorizScrollMeasure = (TextView) fragmentView.findViewById(R.id.horizontal_scroll_measure);
+        mVertScrollMeasure = (TextView) fragmentView.findViewById(R.id.vertical_scroll_measure);
+
         initHorizontalRecyclerView((RecyclerView) fragmentView.findViewById(R.id.horizontal_recycler_view));
         initVerticalRecyclerView((RecyclerView) fragmentView.findViewById(R.id.vertical_recycler_view));
         return fragmentView;
@@ -41,7 +53,33 @@ public class RecyclerViewDemoFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        IOverScrollEffect effect = OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+
+        effect.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
+            @Override
+            public void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset) {
+                mHorizScrollMeasure.setText(String.valueOf((int) offset));
+            }
+        });
+
+        effect.setOverScrollStateListener(new IOverScrollStateListener() {
+
+            private final int mDragColor = getResources().getColor(R.color.colorPrimary);
+            private final int mBounceBackColor = getResources().getColor(R.color.colorPrimaryDark);
+            private final int mClearColor = mHorizScrollMeasure.getCurrentTextColor();
+
+            @Override
+            public void onOverScrollStateChange(IOverScrollEffect effect, int newState) {
+                if (newState == IOverScrollState.STATE_DRAG_START_SIDE ||
+                    newState == IOverScrollState.STATE_DRAG_END_SIDE) {
+                    mHorizScrollMeasure.setTextColor(mDragColor);
+                } else if (newState == IOverScrollState.STATE_BOUNCE_BACK) {
+                    mHorizScrollMeasure.setTextColor(mBounceBackColor);
+                } else {
+                    mHorizScrollMeasure.setTextColor(mClearColor);
+                }
+            }
+        });
     }
 
     private void initVerticalRecyclerView(RecyclerView recyclerView) {
@@ -78,7 +116,31 @@ public class RecyclerViewDemoFragment extends Fragment {
                 dialog.show();
             }
         };
-        new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
+
+        VerticalOverScrollBounceEffectDecorator decorator = new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
+        decorator.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
+            @Override
+            public void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset) {
+                mVertScrollMeasure.setText(String.valueOf((int) offset));
+            }
+        });
+        decorator.setOverScrollStateListener(new IOverScrollStateListener() {
+            private final int mDragColor = getResources().getColor(R.color.colorPrimary);
+            private final int mBounceBackColor = getResources().getColor(R.color.colorPrimaryDark);
+            private final int mClearColor = mVertScrollMeasure.getCurrentTextColor();
+
+            @Override
+            public void onOverScrollStateChange(IOverScrollEffect effect, int newState) {
+                if (newState == IOverScrollState.STATE_DRAG_START_SIDE ||
+                    newState == IOverScrollState.STATE_DRAG_END_SIDE) {
+                    mVertScrollMeasure.setTextColor(mDragColor);
+                } else if (newState == IOverScrollState.STATE_BOUNCE_BACK) {
+                    mVertScrollMeasure.setTextColor(mBounceBackColor);
+                } else {
+                    mVertScrollMeasure.setTextColor(mClearColor);
+                }
+            }
+        });
     }
 
 }

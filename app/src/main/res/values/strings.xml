@@ -14,6 +14,6 @@
     <string name="scroll_view_demo_title">ScrollView Over-Scroll Demo</string>
     <string name="misc_views_demo_title">Misc. Over-Scroll Demo</string>
 
-    <string name="horiz_drag_label">⇦ Drag Horizontally ⇨</string>
-    <string name="vert_drag_label">⇳ Drag Vertically ⇳</string>
+    <string name="horiz_drag_label">⇔ Drag Horizontally</string>
+    <string name="vert_drag_label">⇳ Drag Vertically</string>
 </resources>

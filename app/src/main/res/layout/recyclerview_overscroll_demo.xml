@@ -7,15 +7,31 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     >
 
-    <TextView
-        android:id="@+id/horizontal_recycler_view_header"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/default_label_size"
-        android:text="@string/horiz_drag_label"
-        android:lines="1"
-        />
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/horizontal_recycler_view_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textSize="@dimen/default_label_size"
+            android:text="@string/horiz_drag_label"
+            android:lines="1"
+            />
+        <TextView
+            android:id="@+id/horizontal_scroll_measure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textSize="@dimen/default_subtitle_size"
+            android:text="0"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/horizontal_recycler_view"
         android:layout_width="match_parent"
@@ -24,14 +40,31 @@
         android:paddingBottom="10dp"
         android:layout_weight="3"
         />
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/default_label_size"
-        android:text="@string/vert_drag_label"
-        android:lines="1"
-        />
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/vertical_recycler_view_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textSize="@dimen/default_label_size"
+            android:text="@string/vert_drag_label"
+            android:lines="1"
+            />
+        <TextView
+            android:id="@+id/vertical_scroll_measure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textSize="@dimen/default_subtitle_size"
+            android:text="0"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
     <!--
       When over-scrolling is applied over views that don't stretch though the full vertical region,
       an artificial parent must be introduced so that bounds are clipped while over-scrolling is

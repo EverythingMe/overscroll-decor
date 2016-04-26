@@ -54,7 +54,7 @@ import static me.everything.android.ui.overscroll.ListenerStubs.*;
  * @see RecyclerViewOverScrollDecorAdapter
  * @see IOverScrollDecoratorAdapter
  */
-public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouchListener {
+public abstract class OverScrollBounceEffectDecoratorBase implements IOverScrollEffect, View.OnTouchListener {
 
     public static final float DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD = 3f;
     public static final float DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK = 1f;
@@ -132,7 +132,7 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
         /**
          * Handle a transition onto this state, as it is made the 'current' state.
          */
-        void handleEntrance();
+        void handleInTransition();
     }
 
     /**
@@ -165,7 +165,7 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
                 mStartAttr.mAbsOffset = mMoveAttr.mAbsOffset;
                 mStartAttr.mDir = mMoveAttr.mDir;
 
-                enterState(mOverScrollingState);
+                issueStateTransition(mOverScrollingState);
                 return mOverScrollingState.handleMoveTouchEvent(event);
             }
 
@@ -178,8 +178,8 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
         }
 
         @Override
-        public void handleEntrance() {
-            mStateListener.onOverScrollStateChange(mViewAdapter.getView(), STATE_IDLE);
+        public void handleInTransition() {
+            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, STATE_IDLE);
         }
     }
 
@@ -200,6 +200,7 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
         protected final float mTouchDragRatioBck;
 
         final MotionAttributes mMoveAttr;
+        int mCurrDragState;
 
         public OverScrollingState(float touchDragRatioFwd, float touchDragRatioBck) {
             mMoveAttr = createMotionAttributes();
@@ -213,7 +214,7 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
             // Switching 'pointers' (e.g. fingers) on-the-fly isn't supported -- abort over-scroll
             // smoothly using the default bounce-back animation in this case.
             if (mStartAttr.mPointerId != event.getPointerId(0)) {
-                enterState(mBounceBackState);
+                issueStateTransition(mBounceBackState);
                 return true;
             }
 
@@ -232,9 +233,9 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
             if ( (mStartAttr.mDir && !mMoveAttr.mDir && (newOffset <= mStartAttr.mAbsOffset)) ||
                  (!mStartAttr.mDir && mMoveAttr.mDir && (newOffset >= mStartAttr.mAbsOffset)) ) {
                 translateViewAndEvent(view, mStartAttr.mAbsOffset, event);
-                mUpdateListener.onOverScrollUpdate(view, STATE_DRAG, 0f);
+                mUpdateListener.onOverScrollUpdate(OverScrollBounceEffectDecoratorBase.this, mCurrDragState, 0);
 
-                enterState(mIdleState);
+                issueStateTransition(mIdleState);
                 return true;
             }
 
@@ -248,20 +249,21 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
             }
 
             translateView(view, newOffset);
-            mUpdateListener.onOverScrollUpdate(view, STATE_DRAG, newOffset);
+            mUpdateListener.onOverScrollUpdate(OverScrollBounceEffectDecoratorBase.this, mCurrDragState, newOffset);
 
             return true;
         }
 
         @Override
         public boolean handleUpOrCancelTouchEvent(MotionEvent event) {
-            enterState(mBounceBackState);
+            issueStateTransition(mBounceBackState);
             return true;
         }
 
         @Override
-        public void handleEntrance() {
-            mStateListener.onOverScrollStateChange(mViewAdapter.getView(), STATE_DRAG);
+        public void handleInTransition() {
+            mCurrDragState = (mStartAttr.mDir ? STATE_DRAG_START_SIDE : STATE_DRAG_END_SIDE);
+            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, mCurrDragState);
         }
     }
 
@@ -287,9 +289,9 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
         }
 
         @Override
-        public void handleEntrance() {
+        public void handleInTransition() {
 
-            mStateListener.onOverScrollStateChange(mViewAdapter.getView(), STATE_BOUNCE_BACK);
+            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, STATE_BOUNCE_BACK);
 
             Animator bounceBackAnim = createAnimator();
             bounceBackAnim.addListener(this);
@@ -311,12 +313,12 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
 
         @Override
         public void onAnimationEnd(Animator animation) {
-            enterState(mIdleState);
+            issueStateTransition(mIdleState);
         }
 
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            mUpdateListener.onOverScrollUpdate(mViewAdapter.getView(), STATE_BOUNCE_BACK, ((Float) animation.getAnimatedValue()));
+            mUpdateListener.onOverScrollUpdate(OverScrollBounceEffectDecoratorBase.this, STATE_BOUNCE_BACK, (Float) animation.getAnimatedValue());
         }
 
         @Override public void onAnimationStart(Animator animation) {}
@@ -404,17 +406,24 @@ public abstract class OverScrollBounceEffectDecoratorBase implements View.OnTouc
         return false;
     }
 
+    @Override
     public void setOverScrollStateListener(IOverScrollStateListener listener) {
         mStateListener = (listener != null ? listener : new OverScrollStateListenerStub());
     }
 
+    @Override
     public void setOverScrollUpdateListener(IOverScrollUpdateListener listener) {
         mUpdateListener = (listener != null ? listener : new OverScrollUpdateListenerStub());
     }
 
-    protected void enterState(IDecoratorState state) {
+    @Override
+    public View getView() {
+        return mViewAdapter.getView();
+    }
+
+    protected void issueStateTransition(IDecoratorState state) {
         mCurrentState = state;
-        mCurrentState.handleEntrance();
+        mCurrentState.handleInTransition();
     }
 
     protected abstract MotionAttributes createMotionAttributes();
