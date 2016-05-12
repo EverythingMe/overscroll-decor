@@ -41,7 +41,7 @@ public class OverScrollDemoActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.fragment_placeholder, new GridViewDemoFragment())
+                    .add(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
                     .commit();
         }
     }
@@ -63,14 +63,14 @@ public class OverScrollDemoActivity extends AppCompatActivity
         item.setChecked(true);
 
         switch (id) {
+            case R.id.drawer_item_recyclerview_demo:
+                replaceMainFragment(new RecyclerViewDemoFragment(), R.string.recycler_view_demo_title);
+                break;
             case R.id.drawer_item_gridview_demo:
                 replaceMainFragment(new GridViewDemoFragment(), R.string.grid_view_demo_title);
                 break;
             case R.id.drawer_item_listview_demo:
                 replaceMainFragment(new ListViewDemoFragment(), R.string.list_view_demo_title);
-                break;
-            case R.id.drawer_item_recyclerview_demo:
-                replaceMainFragment(new RecyclerViewDemoFragment(), R.string.recycler_view_demo_title);
                 break;
             case R.id.drawer_item_recyclerview_staggered_grid_demo:
                 replaceMainFragment(new RecyclerViewStaggeredGridDemoFragment(), R.string.recycler_view_staggered_grid_demo_title);

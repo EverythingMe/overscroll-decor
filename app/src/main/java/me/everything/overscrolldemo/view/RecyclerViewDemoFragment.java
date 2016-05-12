@@ -53,31 +53,39 @@ public class RecyclerViewDemoFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
+        // Apply over-scroll in 'standard form' - i.e. using the helper.
         IOverScrollEffect effect = OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
 
+        // Over-scroll listeners can be applied in standard form as well.
         effect.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
             @Override
             public void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset) {
                 mHorizScrollMeasure.setText(String.valueOf((int) offset));
             }
         });
-
         effect.setOverScrollStateListener(new IOverScrollStateListener() {
 
-            private final int mDragColor = getResources().getColor(R.color.colorPrimary);
-            private final int mBounceBackColor = getResources().getColor(R.color.colorPrimaryDark);
+            private final int mDragColorLeft = getResources().getColor(android.R.color.holo_purple);
+            private final int mBounceBackColorLeft = getResources().getColor(android.R.color.holo_blue_light);
+            private final int mDragColorRight = getResources().getColor(android.R.color.holo_red_light);
+            private final int mBounceBackColorRight = getResources().getColor(android.R.color.holo_orange_dark);
             private final int mClearColor = mHorizScrollMeasure.getCurrentTextColor();
+            private int mState;
 
             @Override
             public void onOverScrollStateChange(IOverScrollEffect effect, int newState) {
-                if (newState == IOverScrollState.STATE_DRAG_START_SIDE ||
-                    newState == IOverScrollState.STATE_DRAG_END_SIDE) {
-                    mHorizScrollMeasure.setTextColor(mDragColor);
+                if (newState == IOverScrollState.STATE_DRAG_START_SIDE) {
+                    mHorizScrollMeasure.setTextColor(mDragColorLeft);
+                } else if (newState == IOverScrollState.STATE_DRAG_END_SIDE) {
+                    mHorizScrollMeasure.setTextColor(mDragColorRight);
                 } else if (newState == IOverScrollState.STATE_BOUNCE_BACK) {
-                    mHorizScrollMeasure.setTextColor(mBounceBackColor);
+                    mHorizScrollMeasure.setTextColor((mState == IOverScrollState.STATE_DRAG_START_SIDE)
+                            ? mBounceBackColorLeft
+                            : mBounceBackColorRight);
                 } else {
                     mHorizScrollMeasure.setTextColor(mClearColor);
                 }
+                mState = newState;
             }
         });
     }
@@ -117,7 +125,10 @@ public class RecyclerViewDemoFragment extends Fragment {
             }
         };
 
+        // Apply over-scroll in 'advanced form' - i.e. create an instance manually.
         VerticalOverScrollBounceEffectDecorator decorator = new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
+
+        // Over-scroll listeners are applied here via the decorator explicitly.
         decorator.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
             @Override
             public void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset) {
@@ -125,20 +136,27 @@ public class RecyclerViewDemoFragment extends Fragment {
             }
         });
         decorator.setOverScrollStateListener(new IOverScrollStateListener() {
-            private final int mDragColor = getResources().getColor(R.color.colorPrimary);
-            private final int mBounceBackColor = getResources().getColor(R.color.colorPrimaryDark);
-            private final int mClearColor = mVertScrollMeasure.getCurrentTextColor();
+            private final int mDragColorTop = getResources().getColor(android.R.color.holo_red_light);
+            private final int mBounceBackColorTop = getResources().getColor(android.R.color.holo_orange_dark);
+            private final int mDragColorBottom = getResources().getColor(android.R.color.holo_purple);
+            private final int mBounceBackColorBottom = getResources().getColor(android.R.color.holo_blue_light);
+            private final int mClearColor = mHorizScrollMeasure.getCurrentTextColor();
+            private int mState;
 
             @Override
             public void onOverScrollStateChange(IOverScrollEffect effect, int newState) {
-                if (newState == IOverScrollState.STATE_DRAG_START_SIDE ||
-                    newState == IOverScrollState.STATE_DRAG_END_SIDE) {
-                    mVertScrollMeasure.setTextColor(mDragColor);
+                if (newState == IOverScrollState.STATE_DRAG_START_SIDE) {
+                    mVertScrollMeasure.setTextColor(mDragColorTop);
+                } else if (newState == IOverScrollState.STATE_DRAG_END_SIDE) {
+                    mVertScrollMeasure.setTextColor(mDragColorBottom);
                 } else if (newState == IOverScrollState.STATE_BOUNCE_BACK) {
-                    mVertScrollMeasure.setTextColor(mBounceBackColor);
+                    mVertScrollMeasure.setTextColor(mState == IOverScrollState.STATE_DRAG_START_SIDE
+                        ? mBounceBackColorTop
+                        : mBounceBackColorBottom);
                 } else {
                     mVertScrollMeasure.setTextColor(mClearColor);
                 }
+                mState = newState;
             }
         });
     }

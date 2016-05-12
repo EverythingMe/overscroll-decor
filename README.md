@@ -94,7 +94,7 @@ new HorizontalOverScrollBounceEffectDecorator(new StaticOverScrollDecorAdapter(v
 As of version 1.0.1, the effect can work smoothly with the RecyclerView's built-in mechanism for items swiping and dragging (based on [ItemTouchHelper](http://developer.android.com/reference/android/support/v7/widget/helper/ItemTouchHelper.html)). BUT, it requires some (very little) explicit configuration work:
 
 ```java
-// INSTEAD of attaching a touch-helper & callback directly, like you normally would:
+// Normally you would attach an ItemTouchHelper & a callback to a RecyclerView, this way:
 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 ItemTouchHelper.Callback myCallback = new ItemTouchHelper.Callback() {
 	...
@@ -102,7 +102,7 @@ ItemTouchHelper.Callback myCallback = new ItemTouchHelper.Callback() {
 ItemTouchHelper myHelper = new ItemTouchHelper(myCallback);
 myHelper.attachToRecyclerView(recyclerView);
 
-// Use the dedicated adapter c'tor:
+// INSTEAD of attaching the helper yourself, use the dedicated adapter c'tor, e.g.:
 new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, myCallback));
 
 ```

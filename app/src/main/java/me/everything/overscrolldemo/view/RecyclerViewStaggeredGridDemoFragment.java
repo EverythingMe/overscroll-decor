@@ -25,9 +25,7 @@ public class RecyclerViewStaggeredGridDemoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.recyclerview_overscroll_demo, null, false);
-        fragmentView.findViewById(R.id.horizontal_recycler_view_header).setVisibility(View.GONE);
-        fragmentView.findViewById(R.id.horizontal_recycler_view).setVisibility(View.GONE);
+        View fragmentView = inflater.inflate(R.layout.recyclerview_stgrid_overscroll_demo, null, false);
         initVerticalRecyclerView((RecyclerView) fragmentView.findViewById(R.id.vertical_recycler_view));
         return fragmentView;
     }
