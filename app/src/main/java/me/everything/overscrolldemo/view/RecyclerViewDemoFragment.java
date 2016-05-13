@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import me.everything.android.ui.overscroll.IOverScrollEffect;
-import me.everything.android.ui.overscroll.IOverScrollState;
 import me.everything.android.ui.overscroll.IOverScrollStateListener;
 import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
@@ -24,6 +23,8 @@ import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorat
 import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
+
+import static me.everything.android.ui.overscroll.IOverScrollState.*;
 
 /**
  * @author amitd
@@ -70,22 +71,18 @@ public class RecyclerViewDemoFragment extends Fragment {
             private final int mDragColorRight = getResources().getColor(android.R.color.holo_red_light);
             private final int mBounceBackColorRight = getResources().getColor(android.R.color.holo_orange_dark);
             private final int mClearColor = mHorizScrollMeasure.getCurrentTextColor();
-            private int mState;
 
             @Override
-            public void onOverScrollStateChange(IOverScrollEffect effect, int newState) {
-                if (newState == IOverScrollState.STATE_DRAG_START_SIDE) {
+            public void onOverScrollStateChange(IOverScrollEffect effect, int oldState, int newState) {
+                if (newState == STATE_DRAG_START_SIDE) {
                     mHorizScrollMeasure.setTextColor(mDragColorLeft);
-                } else if (newState == IOverScrollState.STATE_DRAG_END_SIDE) {
+                } else if (newState == STATE_DRAG_END_SIDE) {
                     mHorizScrollMeasure.setTextColor(mDragColorRight);
-                } else if (newState == IOverScrollState.STATE_BOUNCE_BACK) {
-                    mHorizScrollMeasure.setTextColor((mState == IOverScrollState.STATE_DRAG_START_SIDE)
-                            ? mBounceBackColorLeft
-                            : mBounceBackColorRight);
+                } else if (newState == STATE_BOUNCE_BACK) {
+                    mHorizScrollMeasure.setTextColor((oldState == STATE_DRAG_START_SIDE) ? mBounceBackColorLeft : mBounceBackColorRight);
                 } else {
                     mHorizScrollMeasure.setTextColor(mClearColor);
                 }
-                mState = newState;
             }
         });
     }
@@ -141,22 +138,18 @@ public class RecyclerViewDemoFragment extends Fragment {
             private final int mDragColorBottom = getResources().getColor(android.R.color.holo_purple);
             private final int mBounceBackColorBottom = getResources().getColor(android.R.color.holo_blue_light);
             private final int mClearColor = mHorizScrollMeasure.getCurrentTextColor();
-            private int mState;
 
             @Override
-            public void onOverScrollStateChange(IOverScrollEffect effect, int newState) {
-                if (newState == IOverScrollState.STATE_DRAG_START_SIDE) {
+            public void onOverScrollStateChange(IOverScrollEffect effect, int oldState, int newState) {
+                if (newState == STATE_DRAG_START_SIDE) {
                     mVertScrollMeasure.setTextColor(mDragColorTop);
-                } else if (newState == IOverScrollState.STATE_DRAG_END_SIDE) {
+                } else if (newState == STATE_DRAG_END_SIDE) {
                     mVertScrollMeasure.setTextColor(mDragColorBottom);
-                } else if (newState == IOverScrollState.STATE_BOUNCE_BACK) {
-                    mVertScrollMeasure.setTextColor(mState == IOverScrollState.STATE_DRAG_START_SIDE
-                        ? mBounceBackColorTop
-                        : mBounceBackColorBottom);
+                } else if (newState == STATE_BOUNCE_BACK) {
+                    mVertScrollMeasure.setTextColor(oldState == STATE_DRAG_START_SIDE ? mBounceBackColorTop : mBounceBackColorBottom);
                 } else {
                     mVertScrollMeasure.setTextColor(mClearColor);
                 }
-                mState = newState;
             }
         });
     }

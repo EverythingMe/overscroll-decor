@@ -68,7 +68,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
 
-        verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         verify(mUpdateListener, never()).onOverScrollUpdate(eq(uut), anyInt(), anyFloat());
     }
 
@@ -95,7 +95,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
 
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_START_SIDE));
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_START_SIDE));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_START_SIDE), eq(expectedTransX));
     }
 
@@ -122,7 +122,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
 
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_END_SIDE));
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_END_SIDE));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_END_SIDE), eq(expectedTransX));
     }
 
@@ -148,7 +148,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
 
-        verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         verify(mUpdateListener, never()).onOverScrollUpdate(eq(uut), anyInt(), anyFloat());
     }
 
@@ -174,7 +174,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
 
-        verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         verify(mUpdateListener, never()).onOverScrollUpdate(eq(uut), anyInt(), anyFloat());
     }
 
@@ -209,8 +209,8 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         assertTrue(ret);
 
         // State-change listener called only once?
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_START_SIDE));
-        verify(mStateListener).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_START_SIDE));
+        verify(mStateListener).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         // Update-listener called exactly twice?
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_START_SIDE), eq(expectedTransX1));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_START_SIDE), eq(expectedTransX2));
@@ -248,8 +248,8 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         assertTrue(ret);
 
         // State-change listener called only once?
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_END_SIDE));
-        verify(mStateListener).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_END_SIDE));
+        verify(mStateListener).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         // Update-listener called exactly twice?
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_END_SIDE), eq(expectedTransX1));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_END_SIDE), eq(expectedTransX2));
@@ -298,8 +298,8 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         assertTrue(ret);
 
         // State-change listener called only once?
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_START_SIDE));
-        verify(mStateListener).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_START_SIDE));
+        verify(mStateListener).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         // Update-listener called exactly twice?
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_START_SIDE), eq(startTransX));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_START_SIDE), eq(expectedTransX));
@@ -347,8 +347,8 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         assertTrue(ret);
 
         // State-change listener called only once?
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_END_SIDE));
-        verify(mStateListener).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_END_SIDE));
+        verify(mStateListener).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         // Update-listener called exactly twice?
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_END_SIDE), eq(startTransX));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_END_SIDE), eq(expectedTransX));
@@ -389,9 +389,9 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         assertTrue(ret);
 
         // State-change listener invoked to say drag-on and drag-off (idle).
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_START_SIDE));
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE));
-        verify(mStateListener, times(2)).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_START_SIDE));
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_START_SIDE), eq(STATE_IDLE));
+        verify(mStateListener, times(2)).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         // Update-listener called exactly twice?
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_START_SIDE), eq(startTransX));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_START_SIDE), eq(0f));
@@ -432,9 +432,9 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         assertTrue(ret);
 
         // State-change listener invoked to say drag-on and drag-off (idle).
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_END_SIDE));
-        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE));
-        verify(mStateListener, times(2)).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_END_SIDE));
+        verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_DRAG_END_SIDE), eq(STATE_IDLE));
+        verify(mStateListener, times(2)).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         // Update-listener called exactly twice?
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_END_SIDE), eq(startTransX));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_END_SIDE), eq(0f));
@@ -468,7 +468,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
 
-        verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt());
+        verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         verify(mUpdateListener, never()).onOverScrollUpdate(eq(uut), anyInt(), anyFloat());
     }
 

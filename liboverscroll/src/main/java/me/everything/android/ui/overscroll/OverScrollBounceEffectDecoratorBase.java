@@ -130,9 +130,18 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
         boolean handleUpOrCancelTouchEvent(MotionEvent event);
 
         /**
-         * Handle a transition onto this state, as it is made the 'current' state.
+         * Handle a transition onto this state, as it becomes 'current' state.
+         * @param fromState
          */
-        void handleInTransition();
+        void handleEntryTransition(IDecoratorState fromState);
+
+        /**
+         * The client-perspective ID of the state associated with this (internal) one. ID's
+         * are as specified in {@link IOverScrollState}.
+         *
+         * @return The ID, e.g. {@link IOverScrollState#STATE_IDLE}.
+         */
+        int getStateId();
     }
 
     /**
@@ -146,6 +155,11 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
 
         public IdleState() {
             mMoveAttr = createMotionAttributes();
+        }
+
+        @Override
+        public int getStateId() {
+            return STATE_IDLE;
         }
 
         @Override
@@ -178,8 +192,8 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
         }
 
         @Override
-        public void handleInTransition() {
-            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, STATE_IDLE);
+        public void handleEntryTransition(IDecoratorState fromState) {
+            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, fromState.getStateId(), this.getStateId());
         }
     }
 
@@ -206,6 +220,13 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
             mMoveAttr = createMotionAttributes();
             mTouchDragRatioFwd = touchDragRatioFwd;
             mTouchDragRatioBck = touchDragRatioBck;
+        }
+
+        @Override
+        public int getStateId() {
+            // This is really a single class that implements 2 states, so our ID depends on what
+            // it was during the last invocation.
+            return mCurrDragState;
         }
 
         @Override
@@ -261,9 +282,9 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
         }
 
         @Override
-        public void handleInTransition() {
+        public void handleEntryTransition(IDecoratorState fromState) {
             mCurrDragState = (mStartAttr.mDir ? STATE_DRAG_START_SIDE : STATE_DRAG_END_SIDE);
-            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, mCurrDragState);
+            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, fromState.getStateId(), this.getStateId());
         }
     }
 
@@ -289,9 +310,14 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
         }
 
         @Override
-        public void handleInTransition() {
+        public int getStateId() {
+            return STATE_BOUNCE_BACK;
+        }
 
-            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, STATE_BOUNCE_BACK);
+        @Override
+        public void handleEntryTransition(IDecoratorState fromState) {
+
+            mStateListener.onOverScrollStateChange(OverScrollBounceEffectDecoratorBase.this, fromState.getStateId(), this.getStateId());
 
             Animator bounceBackAnim = createAnimator();
             bounceBackAnim.addListener(this);
@@ -422,8 +448,9 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
     }
 
     protected void issueStateTransition(IDecoratorState state) {
+        IDecoratorState oldState = mCurrentState;
         mCurrentState = state;
-        mCurrentState.handleInTransition();
+        mCurrentState.handleEntryTransition(oldState);
     }
 
     protected abstract MotionAttributes createMotionAttributes();
