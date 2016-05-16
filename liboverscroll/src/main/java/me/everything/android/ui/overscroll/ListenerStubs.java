@@ -7,11 +7,11 @@ public interface ListenerStubs {
 
     class OverScrollStateListenerStub implements IOverScrollStateListener {
         @Override
-        public void onOverScrollStateChange(IOverScrollEffect effect, int oldState, int newState) { }
+        public void onOverScrollStateChange(IOverScrollDecor decor, int oldState, int newState) { }
     }
 
     class OverScrollUpdateListenerStub implements IOverScrollUpdateListener {
         @Override
-        public void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset) { }
+        public void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset) { }
     }
 }

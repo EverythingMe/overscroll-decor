@@ -14,11 +14,12 @@ public interface IOverScrollStateListener {
 
     /**
      * The invoked callback.
-     * @param effect The associated over-scroll effect manager.
+     *
+     * @param decor The associated over-scroll 'decorator'.
      * @param oldState The old over-scroll state; ID's specified by {@link IOverScrollState}, e.g.
      *                 {@link IOverScrollState#STATE_IDLE}.
      * @param newState The <b>new</b> over-scroll state; ID's specified by {@link IOverScrollState},
      *                 e.g. {@link IOverScrollState#STATE_IDLE}.
      */
-    void onOverScrollStateChange(IOverScrollEffect effect, int oldState, int newState);
+    void onOverScrollStateChange(IOverScrollDecor decor, int oldState, int newState);
 }

@@ -27,7 +27,7 @@ public class OverScrollDemoActivity extends AppCompatActivity
         setContentView(R.layout.activity_overscroll_demo);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.grid_view_demo_title);
+        toolbar.setTitle(R.string.recycler_view_demo_title);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

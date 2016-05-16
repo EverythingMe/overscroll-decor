@@ -54,7 +54,7 @@ import static me.everything.android.ui.overscroll.ListenerStubs.*;
  * @see RecyclerViewOverScrollDecorAdapter
  * @see IOverScrollDecoratorAdapter
  */
-public abstract class OverScrollBounceEffectDecoratorBase implements IOverScrollEffect, View.OnTouchListener {
+public abstract class OverScrollBounceEffectDecoratorBase implements IOverScrollDecor, View.OnTouchListener {
 
     public static final float DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD = 3f;
     public static final float DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK = 1f;

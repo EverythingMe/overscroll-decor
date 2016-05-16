@@ -32,8 +32,10 @@ public class OverScrollDecoratorHelper {
      *
      * @param recyclerView The view.
      * @param orientation Either {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}.
+     *
+     * @return The over-scroll effect 'decorator', enabling further effect configuration.
      */
-    public static IOverScrollEffect setUpOverScroll(RecyclerView recyclerView, int orientation) {
+    public static IOverScrollDecor setUpOverScroll(RecyclerView recyclerView, int orientation) {
         switch (orientation) {
             case ORIENTATION_HORIZONTAL:
                 return new HorizontalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView));
@@ -44,19 +46,19 @@ public class OverScrollDecoratorHelper {
         }
     }
 
-    public static IOverScrollEffect setUpOverScroll(ListView listView) {
+    public static IOverScrollDecor setUpOverScroll(ListView listView) {
         return new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapter(listView));
     }
 
-    public static IOverScrollEffect setUpOverScroll(GridView gridView) {
+    public static IOverScrollDecor setUpOverScroll(GridView gridView) {
         return new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapter(gridView));
     }
 
-    public static IOverScrollEffect setUpOverScroll(ScrollView scrollView) {
+    public static IOverScrollDecor setUpOverScroll(ScrollView scrollView) {
         return new VerticalOverScrollBounceEffectDecorator(new ScrollViewOverScrollDecorAdapter(scrollView));
     }
 
-    public static IOverScrollEffect setUpOverScroll(HorizontalScrollView scrollView) {
+    public static IOverScrollDecor setUpOverScroll(HorizontalScrollView scrollView) {
         return new HorizontalOverScrollBounceEffectDecorator(new HorizontalScrollViewOverScrollDecorAdapter(scrollView));
     }
 
@@ -66,8 +68,10 @@ public class OverScrollDecoratorHelper {
      *
      * @param view The view.
      * @param orientation One of {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}.
+     *
+     * @return The over-scroll effect 'decorator', enabling further effect configuration.
      */
-    public static IOverScrollEffect setUpStaticOverScroll(View view, int orientation) {
+    public static IOverScrollDecor setUpStaticOverScroll(View view, int orientation) {
         switch (orientation) {
             case ORIENTATION_HORIZONTAL:
                 return new HorizontalOverScrollBounceEffectDecorator(new StaticOverScrollDecorAdapter(view));

@@ -12,10 +12,11 @@ public interface IOverScrollUpdateListener {
 
     /**
      * The invoked callback.
-     * @param effect The associated over-scroll effect manager.
+     *
+     * @param decor The associated over-scroll 'decorator'.
      * @param state One of: {@link IOverScrollState#STATE_IDLE}, {@link IOverScrollState#STATE_DRAG_START_SIDE},
      *              {@link IOverScrollState#STATE_DRAG_START_SIDE} or {@link IOverScrollState#STATE_BOUNCE_BACK}.
      * @param offset The currently visible offset created due to over-scroll.
      */
-    void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset);
+    void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset);
 }

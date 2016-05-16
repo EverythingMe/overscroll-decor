@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import me.everything.android.ui.overscroll.IOverScrollEffect;
+import me.everything.android.ui.overscroll.IOverScrollDecor;
 import me.everything.android.ui.overscroll.IOverScrollStateListener;
 import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
@@ -55,16 +55,16 @@ public class RecyclerViewDemoFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         // Apply over-scroll in 'standard form' - i.e. using the helper.
-        IOverScrollEffect effect = OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        IOverScrollDecor decor = OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
 
         // Over-scroll listeners can be applied in standard form as well.
-        effect.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
+        decor.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
             @Override
-            public void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset) {
+            public void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset) {
                 mHorizScrollMeasure.setText(String.valueOf((int) offset));
             }
         });
-        effect.setOverScrollStateListener(new IOverScrollStateListener() {
+        decor.setOverScrollStateListener(new IOverScrollStateListener() {
 
             private final int mDragColorLeft = getResources().getColor(android.R.color.holo_purple);
             private final int mBounceBackColorLeft = getResources().getColor(android.R.color.holo_blue_light);
@@ -73,7 +73,7 @@ public class RecyclerViewDemoFragment extends Fragment {
             private final int mClearColor = mHorizScrollMeasure.getCurrentTextColor();
 
             @Override
-            public void onOverScrollStateChange(IOverScrollEffect effect, int oldState, int newState) {
+            public void onOverScrollStateChange(IOverScrollDecor decor, int oldState, int newState) {
                 if (newState == STATE_DRAG_START_SIDE) {
                     mHorizScrollMeasure.setTextColor(mDragColorLeft);
                 } else if (newState == STATE_DRAG_END_SIDE) {
@@ -128,7 +128,7 @@ public class RecyclerViewDemoFragment extends Fragment {
         // Over-scroll listeners are applied here via the decorator explicitly.
         decorator.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
             @Override
-            public void onOverScrollUpdate(IOverScrollEffect effect, int state, float offset) {
+            public void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset) {
                 mVertScrollMeasure.setText(String.valueOf((int) offset));
             }
         });
@@ -140,7 +140,7 @@ public class RecyclerViewDemoFragment extends Fragment {
             private final int mClearColor = mHorizScrollMeasure.getCurrentTextColor();
 
             @Override
-            public void onOverScrollStateChange(IOverScrollEffect effect, int oldState, int newState) {
+            public void onOverScrollStateChange(IOverScrollDecor decor, int oldState, int newState) {
                 if (newState == STATE_DRAG_START_SIDE) {
                     mVertScrollMeasure.setTextColor(mDragColorTop);
                 } else if (newState == STATE_DRAG_END_SIDE) {
