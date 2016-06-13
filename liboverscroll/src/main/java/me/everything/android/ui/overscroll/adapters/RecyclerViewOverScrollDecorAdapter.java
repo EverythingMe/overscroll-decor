@@ -107,7 +107,11 @@ public class RecyclerViewOverScrollDecorAdapter implements IOverScrollDecoratorA
 
         @Override
         public boolean isInAbsoluteEnd() {
-            return mLayoutManager.findLastCompletelyVisibleItemPosition() == (mRecyclerView.getAdapter().getItemCount() - 1);
+            if (mLayoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL){
+                return !mRecyclerView.canScrollHorizontally(1);
+            } else {
+                return !mRecyclerView.canScrollVertically(1);
+            }
         }
     }
 
