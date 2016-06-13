@@ -66,7 +66,7 @@ OverScrollDecoratorHelper.setUpOverScroll(horizontalScrollView);
 ### Any View - Text, Image... (Always Over-Scroll Ready)
 
 ```java
-View view = fragmentView.findViewById(R.id.demo_view);
+View view = findViewById(R.id.demo_view);
     
 // Horizontal
 OverScrollDecoratorHelper.setUpStaticOverScroll(view, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);

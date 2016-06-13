@@ -40,11 +40,22 @@ public class RecyclerViewOverScrollDecorAdapter implements IOverScrollDecoratorA
         mRecyclerView = recyclerView;
 
         final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-        if (layoutManager instanceof LinearLayoutManager) {
-            mImpl = new ImplLinearLayout(recyclerView, (LinearLayoutManager) layoutManager);
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            mImpl = new ImplStaggeredGridLayout(recyclerView, (StaggeredGridLayoutManager) layoutManager);
-        } else {
+        if (layoutManager instanceof LinearLayoutManager ||
+            layoutManager instanceof StaggeredGridLayoutManager)
+        {
+            final int orientation =
+                    (layoutManager instanceof LinearLayoutManager
+                        ? ((LinearLayoutManager) layoutManager).getOrientation()
+                        : ((StaggeredGridLayoutManager) layoutManager).getOrientation());
+
+            if (orientation == LinearLayoutManager.HORIZONTAL) {
+                mImpl = new ImplHorizLayout();
+            } else {
+                mImpl = new ImplVerticalLayout();
+            }
+        }
+        else
+        {
             throw new IllegalArgumentException("Recycler views with custom layout managers are not supported by this adapter out of the box." +
                     "Try implementing and providing an explicit 'impl' parameter to the other c'tors, or otherwise create a custom adapter subclass of your own.");
         }
@@ -90,62 +101,29 @@ public class RecyclerViewOverScrollDecorAdapter implements IOverScrollDecoratorA
         return !mIsItemTouchInEffect && mImpl.isInAbsoluteEnd();
     }
 
-    public static class ImplLinearLayout implements Impl {
-
-        private final RecyclerView mRecyclerView;
-        private final LinearLayoutManager mLayoutManager;
-
-        public ImplLinearLayout(RecyclerView recyclerView, LinearLayoutManager layoutManager) {
-            mRecyclerView = recyclerView;
-            mLayoutManager = layoutManager;
-        }
+    protected class ImplHorizLayout implements Impl {
 
         @Override
         public boolean isInAbsoluteStart() {
-            return mLayoutManager.findFirstCompletelyVisibleItemPosition() == 0;
+            return !mRecyclerView.canScrollHorizontally(-1);
         }
 
         @Override
         public boolean isInAbsoluteEnd() {
-            if (mLayoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL){
-                return !mRecyclerView.canScrollHorizontally(1);
-            } else {
-                return !mRecyclerView.canScrollVertically(1);
-            }
+            return !mRecyclerView.canScrollHorizontally(1);
         }
     }
 
-    protected static class ImplStaggeredGridLayout implements Impl {
-
-        private final RecyclerView mRecyclerView;
-        private final StaggeredGridLayoutManager mLayoutManager;
-        final int[] mVisiblePositionsBuffer;
-
-        public ImplStaggeredGridLayout(RecyclerView recyclerView, StaggeredGridLayoutManager layoutManager) {
-            mRecyclerView = recyclerView;
-            mLayoutManager = layoutManager;
-
-            final int spanCount = layoutManager.getSpanCount();
-            mVisiblePositionsBuffer = new int[spanCount];
-        }
+    protected class ImplVerticalLayout implements Impl {
 
         @Override
         public boolean isInAbsoluteStart() {
-            mLayoutManager.findFirstCompletelyVisibleItemPositions(mVisiblePositionsBuffer);
-            return mVisiblePositionsBuffer[0] == 0;
+            return !mRecyclerView.canScrollVertically(-1);
         }
 
         @Override
         public boolean isInAbsoluteEnd() {
-            mLayoutManager.findLastCompletelyVisibleItemPositions(mVisiblePositionsBuffer);
-
-            final int lastItemPos = mRecyclerView.getAdapter().getItemCount() - 1;
-            for (int item : mVisiblePositionsBuffer) {
-                if (item == lastItemPos) {
-                    return true;
-                }
-            }
-            return false;
+            return !mRecyclerView.canScrollVertically(1);
         }
     }
 
