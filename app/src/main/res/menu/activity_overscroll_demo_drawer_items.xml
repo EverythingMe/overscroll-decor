@@ -35,6 +35,12 @@
             android:icon="@drawable/ic_misc"
             android:title="Misc-Views Demo"
             />
+
+        <item
+            android:id="@+id/drawer_item_viewpager_demo"
+            android:icon="@drawable/ic_misc"
+            android:title="Viewpager_Demo"
+            />
     </group>
 
 </menu>

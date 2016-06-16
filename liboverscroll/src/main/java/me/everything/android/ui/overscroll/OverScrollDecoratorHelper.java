@@ -1,5 +1,6 @@
 package me.everything.android.ui.overscroll;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import me.everything.android.ui.overscroll.adapters.HorizontalScrollViewOverScro
 import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.ScrollViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.StaticOverScrollDecorAdapter;
+import me.everything.android.ui.overscroll.adapters.ViewPagerOverScrollDecorAdapter;
 
 /**
  * @author amit
@@ -83,4 +85,12 @@ public class OverScrollDecoratorHelper {
                 throw new IllegalArgumentException("orientation");
         }
     }
+
+    /**
+     * TODO add vertical ViewPager support.
+     */
+    public static IOverScrollDecor setUpOverScroll(ViewPager viewPager) {
+        return new HorizontalOverScrollBounceEffectDecorator(new ViewPagerOverScrollDecorAdapter(viewPager));
+    }
+
 }
