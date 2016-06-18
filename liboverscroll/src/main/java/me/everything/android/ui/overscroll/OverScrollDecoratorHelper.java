@@ -86,9 +86,6 @@ public class OverScrollDecoratorHelper {
         }
     }
 
-    /**
-     * TODO add vertical ViewPager support.
-     */
     public static IOverScrollDecor setUpOverScroll(ViewPager viewPager) {
         return new HorizontalOverScrollBounceEffectDecorator(new ViewPagerOverScrollDecorAdapter(viewPager));
     }
