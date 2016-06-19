@@ -31,10 +31,16 @@
             android:title="ScrollView Demo"
             />
         <item
+            android:id="@+id/drawer_item_viewpager_demo"
+            android:icon="@drawable/ic_view_pager"
+            android:title="ViewPager Demo"
+            />
+        <item
             android:id="@+id/drawer_item_misc_demo"
             android:icon="@drawable/ic_misc"
             android:title="Misc-Views Demo"
             />
+
     </group>
 
 </menu>

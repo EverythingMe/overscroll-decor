@@ -16,6 +16,7 @@ import me.everything.overscrolldemo.view.MiscViewsDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewStaggeredGridDemoFragment;
 import me.everything.overscrolldemo.view.ScrollViewDemoFragment;
+import me.everything.overscrolldemo.view.ViewPagerDemoFragment;
 
 public class OverScrollDemoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,6 +81,9 @@ public class OverScrollDemoActivity extends AppCompatActivity
                 break;
             case R.id.drawer_item_misc_demo:
                 replaceMainFragment(new MiscViewsDemoFragment(), R.string.misc_views_demo_title);
+                break;
+            case R.id.drawer_item_viewpager_demo:
+                replaceMainFragment(new ViewPagerDemoFragment(),R.string.viewpager_demo_title);
                 break;
         }
 

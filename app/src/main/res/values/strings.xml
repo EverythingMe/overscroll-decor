@@ -12,6 +12,7 @@
     <string name="recycler_view_demo_title">RecyclerView Over-Scroll Demo</string>
     <string name="recycler_view_staggered_grid_demo_title">RecyclerView St.Grid Over-Scroll Demo</string>
     <string name="scroll_view_demo_title">ScrollView Over-Scroll Demo</string>
+    <string name="viewpager_demo_title">ViewPager Over-Scroll Demo</string>
     <string name="misc_views_demo_title">Misc. Over-Scroll Demo</string>
 
     <string name="horiz_drag_label">⇔ Drag Horizontally</string>
