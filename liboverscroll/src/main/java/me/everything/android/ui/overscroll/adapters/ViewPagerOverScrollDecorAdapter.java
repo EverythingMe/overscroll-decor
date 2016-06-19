@@ -39,16 +39,14 @@ public class ViewPagerOverScrollDecorAdapter implements IOverScrollDecoratorAdap
     public boolean isInAbsoluteStart() {
 
         return mLastPagerPosition == 0 &&
-                mLastPagerScrollOffset == 0f &&
-                !mViewPager.canScrollHorizontally(-1);
+                mLastPagerScrollOffset == 0f;
     }
 
     @Override
     public boolean isInAbsoluteEnd() {
 
         return mLastPagerPosition == mViewPager.getAdapter().getCount()-1 &&
-                mLastPagerScrollOffset == 0f &&
-                !mViewPager.canScrollHorizontally(1);
+                mLastPagerScrollOffset == 0f;
     }
 
     @Override
