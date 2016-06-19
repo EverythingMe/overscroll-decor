@@ -15,7 +15,7 @@ Add the following to your module's `build.gradle` file:
 dependencies {
     // ...
     
-    compile 'me.everything:overscroll-decor-android:1.0.2'
+    compile 'me.everything:overscroll-decor-android:1.0.3'
 }
 ```
 
@@ -53,6 +53,13 @@ GridView gridView = (GridView) findViewById(R.id.grid_view);
 OverScrollDecoratorHelper.setUpOverScroll(gridView);
 ```
 
+### ViewPager
+
+```java
+ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+OverScrollDecoratorHelper.setUpOverScroll(viewPager);
+```
+
 ### ScrollView, HorizontalScrollView
 
 ```java
@@ -88,6 +95,10 @@ new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapte
 // GridView (vertical)
 GridView gridView = (GridView) findViewById(R.id.grid_view);
 new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapter(gridView));
+
+// ViewPager
+ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+new HorizontalOverScrollBounceEffectDecorator(new ViewPagerOverScrollDecorAdapter(viewPager));
 
 // A simple TextView - horizontal
 View textView = findViewById(R.id.title);
