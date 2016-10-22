@@ -1,9 +1,9 @@
 package me.everything.android.ui.overscroll;
 
 /**
- * A callback-listener enabling over-scroll effect clients to subscribe to effect state transitions.
+ * A callback-listener enabling over-scroll effect clients to be notified of effect state transitions.
  * <br/>Invoked whenever state is transitioned onto one of {@link IOverScrollState#STATE_IDLE},
- * {@link IOverScrollState#STATE_DRAG_START_SIDE}, {@link IOverScrollState#STATE_DRAG_START_SIDE}
+ * {@link IOverScrollState#STATE_DRAG_START_SIDE}, {@link IOverScrollState#STATE_DRAG_END_SIDE}
  * or {@link IOverScrollState#STATE_BOUNCE_BACK}.
  *
  * @author amit

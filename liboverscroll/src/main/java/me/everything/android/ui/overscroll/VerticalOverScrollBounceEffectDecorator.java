@@ -74,10 +74,6 @@ public class VerticalOverScrollBounceEffectDecorator extends OverScrollBounceEff
     public VerticalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter,
                                                    float touchDragRatioFwd, float touchDragRatioBck, float decelerateFactor) {
         super(viewAdapter, decelerateFactor, touchDragRatioFwd, touchDragRatioBck);
-
-        // Some setup on the view itself.
-        mViewAdapter.getView().setOnTouchListener(this);
-        mViewAdapter.getView().setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
 
     @Override

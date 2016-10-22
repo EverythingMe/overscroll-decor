@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.util.Log;
 import android.util.Property;
 import android.view.MotionEvent;
 import android.view.View;
@@ -55,6 +56,8 @@ import static me.everything.android.ui.overscroll.ListenerStubs.*;
  * @see IOverScrollDecoratorAdapter
  */
 public abstract class OverScrollBounceEffectDecoratorBase implements IOverScrollDecor, View.OnTouchListener {
+
+    public static final String TAG = "OverScrollDecor";
 
     public static final float DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD = 3f;
     public static final float DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK = 1f;
@@ -415,11 +418,12 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
         mIdleState = new IdleState();
 
         mCurrentState = mIdleState;
+
+        attach();
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_MOVE:
                 return mCurrentState.handleMoveTouchEvent(event);
@@ -443,6 +447,11 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
     }
 
     @Override
+    public int getCurrentState() {
+        return mCurrentState.getStateId();
+    }
+
+    @Override
     public View getView() {
         return mViewAdapter.getView();
     }
@@ -451,6 +460,20 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
         IDecoratorState oldState = mCurrentState;
         mCurrentState = state;
         mCurrentState.handleEntryTransition(oldState);
+    }
+
+    protected void attach() {
+        getView().setOnTouchListener(this);
+        getView().setOverScrollMode(View.OVER_SCROLL_NEVER);
+    }
+
+    @Override
+    public void detach() {
+        if (mCurrentState != mIdleState) {
+            Log.w(TAG, "Decorator detached while over-scroll is in effect. You might want to add a precondition of that getCurrentState()==STATE_IDLE, first.");
+        }
+        getView().setOnTouchListener(null);
+        getView().setOverScrollMode(View.OVER_SCROLL_ALWAYS);
     }
 
     protected abstract MotionAttributes createMotionAttributes();

@@ -15,6 +15,7 @@ import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
 import static me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator.DEFAULT_DECELERATE_FACTOR;
 import static me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD;
 import static me.everything.android.ui.overscroll.IOverScrollState.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.*;
@@ -42,6 +43,42 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         mUpdateListener = mock(IOverScrollUpdateListener.class);
     }
 
+    @Test
+    public void detach_decoratorIsAttached_detachFromView() throws Exception {
+
+        // Arrange
+
+        HorizontalOverScrollBounceEffectDecorator uut = new HorizontalOverScrollBounceEffectDecorator(mViewAdapter);
+
+        // Act
+
+        uut.detach();
+
+        // Assert
+
+        verify(mView).setOnTouchListener(eq((View.OnTouchListener) null));
+        verify(mView).setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+    }
+
+    @Test
+    public void detach_overScrollInEffect_detachFromView() throws Exception {
+
+        when(mViewAdapter.isInAbsoluteStart()).thenReturn(true);
+        when(mViewAdapter.isInAbsoluteEnd()).thenReturn(false);
+
+        HorizontalOverScrollBounceEffectDecorator uut = getUUT();
+        uut.onTouch(mView, createShortRightMoveEvent());
+
+        // Act
+
+        uut.detach();
+
+        // Assert
+
+        verify(mView).setOnTouchListener(eq((View.OnTouchListener) null));
+        verify(mView).setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+    }
+
     /*
      * Move-action event
      */
@@ -67,6 +104,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationX(anyFloat());
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
+        assertEquals(STATE_IDLE, uut.getCurrentState());
 
         verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         verify(mUpdateListener, never()).onOverScrollUpdate(eq(uut), anyInt(), anyFloat());
@@ -94,6 +132,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationX(expectedTransX);
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
+        assertEquals(STATE_DRAG_START_SIDE, uut.getCurrentState());
 
         verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_START_SIDE));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_START_SIDE), eq(expectedTransX));
@@ -121,6 +160,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationX(expectedTransX);
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
+        assertEquals(STATE_DRAG_END_SIDE, uut.getCurrentState());
 
         verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_END_SIDE));
         verify(mUpdateListener).onOverScrollUpdate(eq(uut), eq(STATE_DRAG_END_SIDE), eq(expectedTransX));
@@ -147,6 +187,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationX(anyFloat());
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
+        assertEquals(STATE_IDLE, uut.getCurrentState());
 
         verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         verify(mUpdateListener, never()).onOverScrollUpdate(eq(uut), anyInt(), anyFloat());
@@ -173,6 +214,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationX(anyFloat());
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
+        assertEquals(STATE_IDLE, uut.getCurrentState());
 
         verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         verify(mUpdateListener, never()).onOverScrollUpdate(eq(uut), anyInt(), anyFloat());
@@ -207,6 +249,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationX(expectedTransX2);
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
+        assertEquals(STATE_DRAG_START_SIDE, uut.getCurrentState());
 
         // State-change listener called only once?
         verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_START_SIDE));
@@ -246,6 +289,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationX(expectedTransX2);
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
+        assertEquals(STATE_DRAG_END_SIDE, uut.getCurrentState());
 
         // State-change listener called only once?
         verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_END_SIDE));
@@ -296,6 +340,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationX(expectedTransX);
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
+        assertEquals(STATE_DRAG_START_SIDE, uut.getCurrentState());
 
         // State-change listener called only once?
         verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_START_SIDE));
@@ -345,6 +390,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationX(expectedTransX);
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
+        assertEquals(STATE_DRAG_END_SIDE, uut.getCurrentState());
 
         // State-change listener called only once?
         verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_END_SIDE));
@@ -387,6 +433,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationX(0);
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
+        assertEquals(STATE_IDLE, uut.getCurrentState());
 
         // State-change listener invoked to say drag-on and drag-off (idle).
         verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_START_SIDE));
@@ -430,6 +477,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView).setTranslationX(0);
         verify(mView, never()).setTranslationY(anyFloat());
         assertTrue(ret);
+        assertEquals(STATE_IDLE, uut.getCurrentState());
 
         // State-change listener invoked to say drag-on and drag-off (idle).
         verify(mStateListener).onOverScrollStateChange(eq(uut), eq(STATE_IDLE), eq(STATE_DRAG_END_SIDE));
@@ -467,6 +515,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
         verify(mView, never()).setTranslationX(anyFloat());
         verify(mView, never()).setTranslationY(anyFloat());
         assertFalse(ret);
+        assertEquals(STATE_IDLE, uut.getCurrentState());
 
         verify(mStateListener, never()).onOverScrollStateChange(eq(uut), anyInt(), anyInt());
         verify(mUpdateListener, never()).onOverScrollUpdate(eq(uut), anyInt(), anyFloat());

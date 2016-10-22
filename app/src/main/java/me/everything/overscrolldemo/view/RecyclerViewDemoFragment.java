@@ -9,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,9 +37,14 @@ public class RecyclerViewDemoFragment extends Fragment {
     private TextView mHorizScrollMeasure;
     private TextView mVertScrollMeasure;
 
+    private IOverScrollDecor mHorizOverScrollEffect;
+    private IOverScrollDecor mVertOverScrollEffect;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+
         View fragmentView = inflater.inflate(R.layout.recyclerview_overscroll_demo, null, false);
 
         mHorizScrollMeasure = (TextView) fragmentView.findViewById(R.id.horizontal_scroll_measure);
@@ -47,6 +55,34 @@ public class RecyclerViewDemoFragment extends Fragment {
         return fragmentView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        final MenuItem detachMenuItem = menu.add("Detach over-scroll").setVisible(true);
+        final MenuItem attachMenuItem = menu.add("Attach over-scroll").setVisible(false);
+        detachMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                detachMenuItem.setVisible(false);
+                attachMenuItem.setVisible(true);
+                mHorizOverScrollEffect.detach();
+                mVertOverScrollEffect.detach();
+                return true;
+            }
+        });
+        attachMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                detachMenuItem.setVisible(true);
+                attachMenuItem.setVisible(false);
+                initHorizontalRecyclerView((RecyclerView) getView().findViewById(R.id.horizontal_recycler_view));
+                initVerticalRecyclerView((RecyclerView) getView().findViewById(R.id.vertical_recycler_view));
+                return true;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     private void initHorizontalRecyclerView(RecyclerView recyclerView) {
         LayoutInflater appInflater = LayoutInflater.from(getActivity().getApplicationContext());
         RecyclerView.Adapter adapter = new DemoRecyclerAdapterHorizontal(DemoContentHelper.getSpectrumItems(getResources()), appInflater);
@@ -55,16 +91,16 @@ public class RecyclerViewDemoFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         // Apply over-scroll in 'standard form' - i.e. using the helper.
-        IOverScrollDecor decor = OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        mHorizOverScrollEffect = OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
 
         // Over-scroll listeners can be applied in standard form as well.
-        decor.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
+        mHorizOverScrollEffect.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
             @Override
             public void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset) {
                 mHorizScrollMeasure.setText(String.valueOf((int) offset));
             }
         });
-        decor.setOverScrollStateListener(new IOverScrollStateListener() {
+        mHorizOverScrollEffect.setOverScrollStateListener(new IOverScrollStateListener() {
 
             private final int mDragColorLeft = getResources().getColor(android.R.color.holo_purple);
             private final int mBounceBackColorLeft = getResources().getColor(android.R.color.holo_blue_light);
@@ -123,16 +159,16 @@ public class RecyclerViewDemoFragment extends Fragment {
         };
 
         // Apply over-scroll in 'advanced form' - i.e. create an instance manually.
-        VerticalOverScrollBounceEffectDecorator decorator = new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
+        mVertOverScrollEffect = new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
 
-        // Over-scroll listeners are applied here via the decorator explicitly.
-        decorator.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
+        // Over-scroll listeners are applied here via the mVertOverScrollEffect explicitly.
+        mVertOverScrollEffect.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
             @Override
             public void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset) {
                 mVertScrollMeasure.setText(String.valueOf((int) offset));
             }
         });
-        decorator.setOverScrollStateListener(new IOverScrollStateListener() {
+        mVertOverScrollEffect.setOverScrollStateListener(new IOverScrollStateListener() {
             private final int mDragColorTop = getResources().getColor(android.R.color.holo_red_light);
             private final int mBounceBackColorTop = getResources().getColor(android.R.color.holo_orange_dark);
             private final int mDragColorBottom = getResources().getColor(android.R.color.holo_purple);
