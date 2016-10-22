@@ -1,4 +1,4 @@
-package me.everything.android.ui.overscroll;
+package me.everything.android.ui.overscroll.core;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
+import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
+import me.everything.android.ui.overscroll.IOverScrollDecor;
+import me.everything.android.ui.overscroll.IOverScrollState;
+import me.everything.android.ui.overscroll.IOverScrollStateListener;
+import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
+import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
 import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
 

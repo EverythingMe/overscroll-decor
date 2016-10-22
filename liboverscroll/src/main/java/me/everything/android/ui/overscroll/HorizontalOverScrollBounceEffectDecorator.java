@@ -4,6 +4,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
+import me.everything.android.ui.overscroll.core.OverScrollBounceEffectDecoratorBase;
 
 /**
  * A concrete implementation of {@link OverScrollBounceEffectDecoratorBase} for a horizontal orientation.
