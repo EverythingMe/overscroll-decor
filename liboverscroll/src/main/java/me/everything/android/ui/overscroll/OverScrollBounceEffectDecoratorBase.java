@@ -281,7 +281,7 @@ public abstract class OverScrollBounceEffectDecoratorBase implements IOverScroll
         @Override
         public boolean handleUpOrCancelTouchEvent(MotionEvent event) {
             issueStateTransition(mBounceBackState);
-            return true;
+            return false;
         }
 
         @Override
