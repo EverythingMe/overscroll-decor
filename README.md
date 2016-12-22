@@ -15,7 +15,7 @@ Add the following to your module's `build.gradle` file:
 dependencies {
     // ...
     
-    compile 'me.everything:overscroll-decor-android:1.0.3'
+    compile 'me.everything:overscroll-decor-android:1.0.4'
 }
 ```
 
@@ -231,8 +231,24 @@ new VerticalOverScrollBounceEffectDecorator(new AbsListViewOverScrollDecorAdapte
         VerticalOverScrollBounceEffectDecorator.DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK,
         -1f // Default is -2
         );
-
 ```
+
+### Dynamic Effect Disabling
+
+As of version 1.0.4, the effect can be dynamically disabled (detached) and reenabled (attached) at runtime:
+
+```java
+IOverScrollDecor decor = OverScrollDecoratorHelper.setUpOverScroll(view);
+
+// Detach. You are strongly encouraged to only call this when overscroll isn't
+// in-effect: Either add getCurrentState()==STATE_IDLE as a precondition,
+// or use a state-change listener.
+decor.detach();
+// Attach.
+decor.attach();
+```
+
+`attach()` and `detach()` can be used repeatedly - as necessary, as can be seen in the demo project (refer to action-bar menu in recycler-view demo).
 
 ## Credits
 
