@@ -5,8 +5,8 @@ repositories {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "me.everything.overscrolldemo"
@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23+'
-    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:appcompat-v7:25+'
+    compile 'com.android.support:design:25.1.0'
     compile project(':liboverscroll')
 }
