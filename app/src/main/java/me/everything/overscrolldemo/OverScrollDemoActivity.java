@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import me.everything.overscrolldemo.view.GridViewDemoFragment;
 import me.everything.overscrolldemo.view.ListViewDemoFragment;
 import me.everything.overscrolldemo.view.MiscViewsDemoFragment;
+import me.everything.overscrolldemo.view.NestedScrollViewDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewStaggeredGridDemoFragment;
 import me.everything.overscrolldemo.view.ScrollViewDemoFragment;
@@ -79,11 +80,14 @@ public class OverScrollDemoActivity extends AppCompatActivity
             case R.id.drawer_item_scrollview_demo:
                 replaceMainFragment(new ScrollViewDemoFragment(), R.string.scroll_view_demo_title);
                 break;
-            case R.id.drawer_item_misc_demo:
-                replaceMainFragment(new MiscViewsDemoFragment(), R.string.misc_views_demo_title);
-                break;
             case R.id.drawer_item_viewpager_demo:
                 replaceMainFragment(new ViewPagerDemoFragment(),R.string.viewpager_demo_title);
+                break;
+            case R.id.drawer_item_nested_scrollview_demo:
+                replaceMainFragment(new NestedScrollViewDemoFragment(), R.string.nested_scrollview_demo_title);
+                break;
+            case R.id.drawer_item_misc_demo:
+                replaceMainFragment(new MiscViewsDemoFragment(), R.string.misc_views_demo_title);
                 break;
         }
 
