@@ -60,7 +60,7 @@ ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 OverScrollDecoratorHelper.setUpOverScroll(viewPager);
 ```
 
-### ScrollView, HorizontalScrollView
+### ScrollView, HorizontalScrollView, NestedScrollView
 
 ```java
 ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
@@ -68,6 +68,9 @@ OverScrollDecoratorHelper.setUpOverScroll(scrollView);
     
 HorizontalScrollView horizontalScrollView = (HorizontalScrollView) findViewById(R.id.horizontal_scroll_view);
 OverScrollDecoratorHelper.setUpOverScroll(horizontalScrollView);
+
+NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nested_scroll_view);
+OverScrollDecoratorHelper.setUpOverScroll(nestedScrollView);
 ```
 
 ### Any View - Text, Image... (Always Over-Scroll Ready)
