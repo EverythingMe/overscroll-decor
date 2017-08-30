@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Chronometer;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+import me.everything.overscrolldemo.OverScrollDemoActivity;
 import me.everything.overscrolldemo.R;
 
 /**
@@ -24,16 +25,28 @@ public class MiscViewsDemoFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.misc_overscroll_demo, null, false);
 
         View textView = fragmentView.findViewById(R.id.demo_text);
-        OverScrollDecoratorHelper.setUpStaticOverScroll(textView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            OverScrollDecoratorHelper.setUpStaticOverScroll(textView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        } else {
+            OverScrollDecoratorHelper.setUpScaleStaticOverScroll(textView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL, 2);
+        }
 
         View imageView = fragmentView.findViewById(R.id.demo_image);
-        OverScrollDecoratorHelper.setUpStaticOverScroll(imageView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            OverScrollDecoratorHelper.setUpStaticOverScroll(imageView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+        } else {
+            OverScrollDecoratorHelper.setUpScaleStaticOverScroll(imageView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL, 2);
+        }
 
         mChrono = (Chronometer) fragmentView.findViewById(R.id.demo_chronometer);
         if (savedInstanceState != null) {
             mChrono.setBase(savedInstanceState.getLong(CHRONO_TIME_SAVE_ID));
         }
-        OverScrollDecoratorHelper.setUpStaticOverScroll(mChrono, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            OverScrollDecoratorHelper.setUpStaticOverScroll(mChrono, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        } else {
+            OverScrollDecoratorHelper.setUpScaleStaticOverScroll(mChrono, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL, 2);
+        }
         mChrono.start();
 
         return fragmentView;

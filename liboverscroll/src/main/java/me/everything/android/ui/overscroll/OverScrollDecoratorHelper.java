@@ -33,8 +33,7 @@ public class OverScrollDecoratorHelper {
      * by this convenience method.
      *
      * @param recyclerView The view.
-     * @param orientation Either {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}.
-     *
+     * @param orientation  Either {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}.
      * @return The over-scroll effect 'decorator', enabling further effect configuration.
      */
     public static IOverScrollDecor setUpOverScroll(RecyclerView recyclerView, int orientation) {
@@ -68,9 +67,8 @@ public class OverScrollDecoratorHelper {
      * Set up the over-scroll over a generic view, assumed to always be over-scroll ready (e.g.
      * a plain text field, image view).
      *
-     * @param view The view.
+     * @param view        The view.
      * @param orientation One of {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}.
-     *
      * @return The over-scroll effect 'decorator', enabling further effect configuration.
      */
     public static IOverScrollDecor setUpStaticOverScroll(View view, int orientation) {
@@ -88,6 +86,61 @@ public class OverScrollDecoratorHelper {
 
     public static IOverScrollDecor setUpOverScroll(ViewPager viewPager) {
         return new HorizontalOverScrollBounceEffectDecorator(new ViewPagerOverScrollDecorAdapter(viewPager));
+    }
+
+    /**
+     * scale effect
+     */
+    public static IOverScrollDecor setUpScaleOverScroll(RecyclerView recyclerView, int orientation, float damping) {
+        switch (orientation) {
+            case ORIENTATION_HORIZONTAL:
+                return new HorizontalOverScrollScaleEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView), damping);
+            case ORIENTATION_VERTICAL:
+                return new VerticalOverScrollScaleEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView), damping);
+            default:
+                throw new IllegalArgumentException("orientation");
+        }
+    }
+
+    public static IOverScrollDecor setUpScaleOverScroll(ListView listView, float damping) {
+        return new VerticalOverScrollScaleEffectDecorator(new AbsListViewOverScrollDecorAdapter(listView), damping);
+    }
+
+    public static IOverScrollDecor setUpScaleOverScroll(GridView gridView, float damping) {
+        return new VerticalOverScrollScaleEffectDecorator(new AbsListViewOverScrollDecorAdapter(gridView), damping);
+    }
+
+    public static IOverScrollDecor setUpScaleOverScroll(ScrollView scrollView, float damping) {
+        return new VerticalOverScrollScaleEffectDecorator(new ScrollViewOverScrollDecorAdapter(scrollView), damping);
+    }
+
+    public static IOverScrollDecor setUpScaleOverScroll(HorizontalScrollView scrollView, float damping) {
+        return new HorizontalOverScrollScaleEffectDecorator(new HorizontalScrollViewOverScrollDecorAdapter(scrollView), damping);
+    }
+
+    /**
+     * Set up the over-scroll over a generic view, assumed to always be over-scroll ready (e.g.
+     * a plain text field, image view).
+     *
+     * @param view        The view.
+     * @param orientation One of {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}.
+     * @return The over-scroll effect 'decorator', enabling further effect configuration.
+     */
+    public static IOverScrollDecor setUpScaleStaticOverScroll(View view, int orientation, float damping) {
+        switch (orientation) {
+            case ORIENTATION_HORIZONTAL:
+                return new HorizontalOverScrollScaleEffectDecorator(new StaticOverScrollDecorAdapter(view), damping);
+
+            case ORIENTATION_VERTICAL:
+                return new VerticalOverScrollScaleEffectDecorator(new StaticOverScrollDecorAdapter(view), damping);
+
+            default:
+                throw new IllegalArgumentException("orientation");
+        }
+    }
+
+    public static IOverScrollDecor setUpScaleOverScroll(ViewPager viewPager, float damping) {
+        return new HorizontalOverScrollScaleEffectDecorator(new ViewPagerOverScrollDecorAdapter(viewPager), damping);
     }
 
 }

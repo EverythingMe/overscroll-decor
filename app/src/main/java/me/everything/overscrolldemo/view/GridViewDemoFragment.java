@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import java.util.List;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+import me.everything.overscrolldemo.OverScrollDemoActivity;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
@@ -31,7 +32,10 @@ public class GridViewDemoFragment extends Fragment {
         LayoutInflater appInflater = LayoutInflater.from(getActivity().getApplicationContext());
         ListAdapter adapter = new DemoGridAdapter(appInflater, content);
         gridView.setAdapter(adapter);
-
-        OverScrollDecoratorHelper.setUpOverScroll(gridView);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            OverScrollDecoratorHelper.setUpOverScroll(gridView);
+        } else {
+            OverScrollDecoratorHelper.setUpScaleOverScroll(gridView, 2);
+        }
     }
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+import me.everything.overscrolldemo.OverScrollDemoActivity;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
@@ -29,7 +30,7 @@ public class ViewPagerDemoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.viewpager_overscroll_demo,null,false);
+        return inflater.inflate(R.layout.viewpager_overscroll_demo, null, false);
     }
 
     @Override
@@ -42,13 +43,18 @@ public class ViewPagerDemoFragment extends Fragment {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(items);
         viewPager.setAdapter(adapter);
-        OverScrollDecoratorHelper.setUpOverScroll(viewPager);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            OverScrollDecoratorHelper.setUpOverScroll(viewPager);
+        } else {
+            OverScrollDecoratorHelper.setUpScaleOverScroll(viewPager, 2);
+        }
     }
 
-    public static class ViewPagerAdapter extends PagerAdapter{
+    public static class ViewPagerAdapter extends PagerAdapter {
 
         private List<DemoItem> items;
-        public ViewPagerAdapter(List<DemoItem> items){
+
+        public ViewPagerAdapter(List<DemoItem> items) {
             this.items = items;
         }
 
