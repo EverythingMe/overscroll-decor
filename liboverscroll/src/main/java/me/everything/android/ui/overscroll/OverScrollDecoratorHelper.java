@@ -1,6 +1,7 @@
 package me.everything.android.ui.overscroll;
 
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.ScrollView;
 
 import me.everything.android.ui.overscroll.adapters.AbsListViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.HorizontalScrollViewOverScrollDecorAdapter;
+import me.everything.android.ui.overscroll.adapters.NestedScrollViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.ScrollViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.StaticOverScrollDecorAdapter;
@@ -57,6 +59,10 @@ public class OverScrollDecoratorHelper {
 
     public static IOverScrollDecor setUpOverScroll(ScrollView scrollView) {
         return new VerticalOverScrollBounceEffectDecorator(new ScrollViewOverScrollDecorAdapter(scrollView));
+    }
+
+    public static IOverScrollDecor setUpOverScroll(NestedScrollView scrollView) {
+        return new VerticalOverScrollBounceEffectDecorator(new NestedScrollViewOverScrollDecorAdapter(scrollView));
     }
 
     public static IOverScrollDecor setUpOverScroll(HorizontalScrollView scrollView) {
@@ -112,6 +118,10 @@ public class OverScrollDecoratorHelper {
 
     public static IOverScrollDecor setUpScaleOverScroll(ScrollView scrollView, float damping) {
         return new VerticalOverScrollScaleEffectDecorator(new ScrollViewOverScrollDecorAdapter(scrollView), damping);
+    }
+
+    public static IOverScrollDecor setUpScaleOverScroll(NestedScrollView scrollView, float damping) {
+        return new VerticalOverScrollScaleEffectDecorator(new NestedScrollViewOverScrollDecorAdapter(scrollView), damping);
     }
 
     public static IOverScrollDecor setUpScaleOverScroll(HorizontalScrollView scrollView, float damping) {
