@@ -23,7 +23,9 @@ import me.everything.android.ui.overscroll.IOverScrollStateListener;
 import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
+import me.everything.android.ui.overscroll.VerticalOverScrollScaleEffectDecorator;
 import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
+import me.everything.overscrolldemo.OverScrollDemoActivity;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 
@@ -36,6 +38,7 @@ public class RecyclerViewDemoFragment extends Fragment {
 
     private TextView mHorizScrollMeasure;
     private TextView mVertScrollMeasure;
+    private int mEffectType;
 
     private IOverScrollDecor mHorizOverScrollEffect;
     private IOverScrollDecor mVertOverScrollEffect;
@@ -91,7 +94,11 @@ public class RecyclerViewDemoFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         // Apply over-scroll in 'standard form' - i.e. using the helper.
-        mHorizOverScrollEffect = OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            mHorizOverScrollEffect = OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL);
+        } else {
+            mHorizOverScrollEffect = OverScrollDecoratorHelper.setUpScaleOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL, 2);
+        }
 
         // Over-scroll listeners can be applied in standard form as well.
         mHorizOverScrollEffect.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
@@ -159,7 +166,11 @@ public class RecyclerViewDemoFragment extends Fragment {
         };
 
         // Apply over-scroll in 'advanced form' - i.e. create an instance manually.
-        mVertOverScrollEffect = new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            mVertOverScrollEffect = new VerticalOverScrollBounceEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback));
+        } else {
+            mVertOverScrollEffect = new VerticalOverScrollScaleEffectDecorator(new RecyclerViewOverScrollDecorAdapter(recyclerView, itemTouchHelperCallback), 2);
+        }
 
         // Over-scroll listeners are applied here via the mVertOverScrollEffect explicitly.
         mVertOverScrollEffect.setOverScrollUpdateListener(new IOverScrollUpdateListener() {

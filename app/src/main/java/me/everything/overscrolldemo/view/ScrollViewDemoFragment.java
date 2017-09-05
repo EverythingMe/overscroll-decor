@@ -10,6 +10,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+import me.everything.overscrolldemo.OverScrollDemoActivity;
 import me.everything.overscrolldemo.R;
 
 /**
@@ -27,11 +28,19 @@ public class ScrollViewDemoFragment extends Fragment {
     }
 
     private void initHorizontalScrollView(HorizontalScrollView scrollView) {
-        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+        } else {
+            OverScrollDecoratorHelper.setUpScaleOverScroll(scrollView, 2);
+        }
     }
 
     private void initVerticalScrollView(ScrollView scrollView) {
-        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+        } else {
+            OverScrollDecoratorHelper.setUpScaleOverScroll(scrollView, 2);
+        }
     }
 
 }

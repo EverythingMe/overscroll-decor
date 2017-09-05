@@ -17,10 +17,16 @@ import me.everything.overscrolldemo.view.NestedScrollViewDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewDemoFragment;
 import me.everything.overscrolldemo.view.RecyclerViewStaggeredGridDemoFragment;
 import me.everything.overscrolldemo.view.ScrollViewDemoFragment;
+import me.everything.overscrolldemo.view.SwitchEffectFragment;
 import me.everything.overscrolldemo.view.ViewPagerDemoFragment;
 
 public class OverScrollDemoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final int EFFECT_BOUNCE = 0;
+    public static final int EFFECT_SCALE = 1;
+
+    public static int mCurrentEffect = EFFECT_BOUNCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +69,11 @@ public class OverScrollDemoActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         final int id = item.getItemId();
         item.setChecked(true);
-
         switch (id) {
+            case R.id.switch_effect:
+                mCurrentEffect = mCurrentEffect == EFFECT_BOUNCE ? EFFECT_SCALE : EFFECT_BOUNCE;
+                replaceMainFragment(new SwitchEffectFragment(), R.string.switch_effect);
+                break;
             case R.id.drawer_item_recyclerview_demo:
                 replaceMainFragment(new RecyclerViewDemoFragment(), R.string.recycler_view_demo_title);
                 break;
@@ -81,7 +90,7 @@ public class OverScrollDemoActivity extends AppCompatActivity
                 replaceMainFragment(new ScrollViewDemoFragment(), R.string.scroll_view_demo_title);
                 break;
             case R.id.drawer_item_viewpager_demo:
-                replaceMainFragment(new ViewPagerDemoFragment(),R.string.viewpager_demo_title);
+                replaceMainFragment(new ViewPagerDemoFragment(), R.string.viewpager_demo_title);
                 break;
             case R.id.drawer_item_nested_scrollview_demo:
                 replaceMainFragment(new NestedScrollViewDemoFragment(), R.string.nested_scrollview_demo_title);

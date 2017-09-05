@@ -12,6 +12,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+import me.everything.overscrolldemo.OverScrollDemoActivity;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
@@ -33,7 +34,10 @@ public class ListViewDemoFragment extends Fragment {
         LayoutInflater appInflater = LayoutInflater.from(getActivity().getApplicationContext());
         ListAdapter adapter = new DemoListAdapter(appInflater, content);
         listView.setAdapter(adapter);
-
-        OverScrollDecoratorHelper.setUpOverScroll(listView);
+        if (OverScrollDemoActivity.mCurrentEffect == OverScrollDemoActivity.EFFECT_BOUNCE) {
+            OverScrollDecoratorHelper.setUpOverScroll(listView);
+        } else {
+            OverScrollDecoratorHelper.setUpScaleOverScroll(listView, 2);
+        }
     }
 }

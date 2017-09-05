@@ -4,24 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    >
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <LinearLayout
+        android:id="@+id/vertical_recycler_view_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/vertical_recycler_view_header"
-        >
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="@dimen/default_label_size"
-            android:text="@string/vert_drag_label"
             android:lines="1"
-            />
+            android:text="@string/vert_drag_label"
+            android:textSize="@dimen/default_label_size" />
     </LinearLayout>
     <!--
       When over-scrolling is applied over views that don't stretch though the full vertical region,
@@ -31,12 +29,11 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        >
+        android:paddingTop="10dp">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/vertical_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </FrameLayout>
 </LinearLayout>
