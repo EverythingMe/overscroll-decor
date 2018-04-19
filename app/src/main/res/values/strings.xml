@@ -16,7 +16,7 @@
     <string name="nested_scrollview_demo_title">NestedScrollView Over-Scroll Demo</string>
     <string name="misc_views_demo_title">Misc. Over-Scroll Demo</string>
     <string name="nested_scrollview_text">This text box is scrollable thanks to being situated inside a nested scroll view. That makes it scrollable regardless of the scrolling of the content of the entire screen, which can be scrolled independently.\nThe point here is to demonstrate how the over-scroll effect can work in the presence of nested scroll-views, provided it is applied over the parent (root) view, regardless of having inner nested scroll-views as children.\nIn this demo, the root view is merely a ScrollView, and therefore applying the effect over it is straightforward (i.e. using the OverScrollHelper).</string>
-
+    <string name="swipe_refresh_title">SwipeRefreshLayout Over-Scroll Demo</string>
     <string name="horiz_drag_label">⇔ Drag Horizontally</string>
     <string name="vert_drag_label">⇳ Drag Vertically</string>
 
