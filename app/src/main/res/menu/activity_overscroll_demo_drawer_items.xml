@@ -1,49 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/drawer_item_recyclerview_demo"
-            android:icon="@drawable/ic_recycler"
-            android:title="RecyclerView Demo"
             android:checked="true"
-            />
+            android:icon="@drawable/ic_recycler"
+            android:title="RecyclerView Demo" />
         <item
             android:id="@+id/drawer_item_recyclerview_staggered_grid_demo"
             android:icon="@drawable/ic_recycler"
-            android:title="RecyclerView - St.Grid Demo"
-            />
+            android:title="RecyclerView - St.Grid Demo" />
         <item
             android:id="@+id/drawer_item_gridview_demo"
             android:icon="@drawable/ic_grid"
-            android:title="GridView Demo"
-            />
+            android:title="GridView Demo" />
         <item
             android:id="@+id/drawer_item_listview_demo"
             android:icon="@drawable/ic_list"
-            android:title="ListView Demo"
-            />
+            android:title="ListView Demo" />
         <item
             android:id="@+id/drawer_item_scrollview_demo"
             android:icon="@drawable/ic_scroller"
-            android:title="ScrollView Demo"
-            />
+            android:title="ScrollView Demo" />
         <item
             android:id="@+id/drawer_item_viewpager_demo"
             android:icon="@drawable/ic_view_pager"
-            android:title="ViewPager Demo"
-            />
+            android:title="ViewPager Demo" />
         <item
             android:id="@+id/drawer_item_nested_scrollview_demo"
-            android:title="NestedScrollView Demo"
-            />
+            android:title="NestedScrollView Demo" />
         <item
             android:id="@+id/drawer_item_misc_demo"
             android:icon="@drawable/ic_misc"
-            android:title="Misc-Views Demo"
-            />
+            android:title="Misc-Views Demo" />
+        <item
+            android:id="@+id/drawer_item_swipe_refresh_demo"
+            android:title="SwipeRefreshLayout Demo" />
 
     </group>
 
