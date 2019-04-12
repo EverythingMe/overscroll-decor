@@ -16,11 +16,10 @@ import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecor
  */
 public class ViewPagerOverScrollDecorAdapter implements IOverScrollDecoratorAdapter, ViewPager.OnPageChangeListener {
 
-    private static final float APPROXIMATELY_EQUAL_DELTA = 0.001f;
+    private static final float APPROXIMATELY_EQUAL_DELTA = 0.01f;
 
     protected final ViewPager mViewPager;
 
-    protected int mLastPagerPosition = 0;
     protected float mLastPagerScrollOffset;
 
     public ViewPagerOverScrollDecorAdapter(ViewPager viewPager) {
@@ -28,7 +27,6 @@ public class ViewPagerOverScrollDecorAdapter implements IOverScrollDecoratorAdap
 
         mViewPager.addOnPageChangeListener(this);
 
-        mLastPagerPosition = mViewPager.getCurrentItem();
         mLastPagerScrollOffset = 0f;
     }
 
@@ -39,12 +37,12 @@ public class ViewPagerOverScrollDecorAdapter implements IOverScrollDecoratorAdap
 
     @Override
     public boolean isInAbsoluteStart() {
-        return mLastPagerPosition == 0 && isApproximatelyEquals(mLastPagerScrollOffset, 0f);
+        return mViewPager.getCurrentItem() == 0 && isApproximatelyEquals(mLastPagerScrollOffset, 0f);
     }
 
     @Override
     public boolean isInAbsoluteEnd() {
-        return mLastPagerPosition == mViewPager.getAdapter().getCount() - 1 &&
+        return mViewPager.getCurrentItem() == mViewPager.getAdapter().getCount() - 1 &&
                 (isApproximatelyEquals(mLastPagerScrollOffset, 0f) || isApproximatelyEquals(mLastPagerScrollOffset, 1f));
     }
 
@@ -55,7 +53,7 @@ public class ViewPagerOverScrollDecorAdapter implements IOverScrollDecoratorAdap
 
     @Override
     public void onPageSelected(int position) {
-        mLastPagerPosition = position;
+        
     }
 
     @Override
