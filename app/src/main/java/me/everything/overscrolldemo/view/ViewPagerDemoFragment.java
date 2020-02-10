@@ -3,9 +3,9 @@ package me.everything.overscrolldemo.view;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
