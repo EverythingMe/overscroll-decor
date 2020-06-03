@@ -72,8 +72,73 @@ public class HorizontalOverScrollBounceEffectDecorator extends OverScrollBounceE
      *                         bounce-back effect.
      */
     public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter,
-                                                     float touchDragRatioFwd, float touchDragRatioBck, float decelerateFactor) {
-        super(viewAdapter, decelerateFactor, touchDragRatioFwd, touchDragRatioBck);
+                                                     float touchDragRatioFwd, float touchDragRatioBck,
+                                                     float decelerateFactor) {
+        super(viewAdapter, decelerateFactor, touchDragRatioFwd, touchDragRatioBck, Float.MAX_VALUE, Float.MIN_VALUE);
+    }
+
+    /**
+     * C'tor, creating the effect with default arguments:
+     * <br/>Touch-drag ratio in 'forward' direction will be set to DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD.
+     * <br/>Touch-drag ratio in 'backwards' direction will be set to DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK.
+     * <br/>Deceleration factor (for the bounce-back effect) will be set to DEFAULT_DECELERATE_FACTOR.
+     *
+     * @param viewAdapter The view's encapsulation.
+     * @param positiveMaxOverScrollDistance maximum allowed distance for overScroll from left/start.
+     * @param negativeMaxOverScrollDistance maximum allowed distance for overScroll from right/end.
+     */
+    public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter, float positiveMaxOverScrollDistance,
+                                                     float negativeMaxOverScrollDistance) {
+        this(viewAdapter, DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD, DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK,
+                DEFAULT_DECELERATE_FACTOR, positiveMaxOverScrollDistance, negativeMaxOverScrollDistance);
+    }
+
+    /**
+     * C'tor, creating the effect with default arguments:
+     * <br/>Touch-drag ratio in 'forward' direction will be set to DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD.
+     * <br/>Touch-drag ratio in 'backwards' direction will be set to DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK.
+     * <br/>Deceleration factor (for the bounce-back effect) will be set to DEFAULT_DECELERATE_FACTOR.
+     *
+     * @param viewAdapter The view's encapsulation.
+     * @param maxOverScrollDistance maximum allowed distance for overScroll from any direction.
+     */
+    public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter, float maxOverScrollDistance) {
+        this(viewAdapter, DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD, DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK,
+                DEFAULT_DECELERATE_FACTOR, maxOverScrollDistance);
+    }
+
+    /**
+     * C'tor, creating the effect with explicit arguments.
+     * @param viewAdapter The view's encapsulation.
+     * @param touchDragRatioFwd Ratio of touch distance to actual drag distance when in 'forward' direction.
+     * @param touchDragRatioBck Ratio of touch distance to actual drag distance when in 'backward'
+     *                          direction (opposite to initial one).
+     * @param decelerateFactor Deceleration factor used when decelerating the motion to create the
+     *                         bounce-back effect.
+     * @param positiveMaxOverScrollDistance maximum allowed distance for overScroll from left/start.
+     * @param negativeMaxOverScrollDistance maximum allowed distance for overScroll from right/end.
+     */
+    public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter,
+                                                     float touchDragRatioFwd, float touchDragRatioBck,
+                                                     float decelerateFactor, float positiveMaxOverScrollDistance,
+                                                     float negativeMaxOverScrollDistance) {
+        super(viewAdapter, decelerateFactor, touchDragRatioFwd, touchDragRatioBck, positiveMaxOverScrollDistance, negativeMaxOverScrollDistance);
+    }
+
+    /**
+     * C'tor, creating the effect with explicit arguments.
+     * @param viewAdapter The view's encapsulation.
+     * @param touchDragRatioFwd Ratio of touch distance to actual drag distance when in 'forward' direction.
+     * @param touchDragRatioBck Ratio of touch distance to actual drag distance when in 'backward'
+     *                          direction (opposite to initial one).
+     * @param decelerateFactor Deceleration factor used when decelerating the motion to create the
+     *                         bounce-back effect.
+     * @param maxOverScrollDistance maximum allowed distance for overScroll from any direction.
+     */
+    public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter,
+                                                     float touchDragRatioFwd, float touchDragRatioBck,
+                                                     float decelerateFactor, float maxOverScrollDistance) {
+        super(viewAdapter, decelerateFactor, touchDragRatioFwd, touchDragRatioBck, maxOverScrollDistance, maxOverScrollDistance);
     }
 
     @Override
