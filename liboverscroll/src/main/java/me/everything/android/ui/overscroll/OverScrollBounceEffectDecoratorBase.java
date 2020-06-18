@@ -50,8 +50,6 @@ import static me.everything.android.ui.overscroll.ListenerStubs.*;
  * </ol>
  * </p>
  *
- * @author amit
- *
  * @see RecyclerViewOverScrollDecorAdapter
  * @see IOverScrollDecoratorAdapter
  */

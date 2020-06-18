@@ -13,8 +13,6 @@ import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecor
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 
 /**
- * @author amitd
- *
  * @see HorizontalOverScrollBounceEffectDecorator
  * @see VerticalOverScrollBounceEffectDecorator
  */

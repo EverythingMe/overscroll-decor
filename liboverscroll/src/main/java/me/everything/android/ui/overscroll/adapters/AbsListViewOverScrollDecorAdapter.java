@@ -10,8 +10,6 @@ import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorat
  * An adapter to enable over-scrolling over object of {@link AbsListView}, namely {@link
  * android.widget.ListView} and it's extensions, and {@link android.widget.GridView}.
  *
- * @author amit
- *
  * @see HorizontalOverScrollBounceEffectDecorator
  * @see VerticalOverScrollBounceEffectDecorator
  */

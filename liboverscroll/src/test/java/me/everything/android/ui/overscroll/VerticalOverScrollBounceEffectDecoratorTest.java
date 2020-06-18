@@ -19,9 +19,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
-/**
- * @author amitd
- */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class VerticalOverScrollBounceEffectDecoratorTest {

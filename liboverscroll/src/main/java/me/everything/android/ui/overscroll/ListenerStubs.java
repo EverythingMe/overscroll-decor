@@ -1,8 +1,5 @@
 package me.everything.android.ui.overscroll;
 
-/**
- * @author amit
- */
 public interface ListenerStubs {
 
     class OverScrollStateListenerStub implements IOverScrollStateListener {

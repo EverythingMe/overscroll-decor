@@ -13,8 +13,6 @@ import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorat
  * over-scrolling, use {@link HorizontalScrollViewOverScrollDecorAdapter} in conjunction with
  * a {@link android.widget.HorizontalScrollView}.
  *
- * @author amit
- *
  * @see HorizontalOverScrollBounceEffectDecorator
  * @see VerticalOverScrollBounceEffectDecorator
  */

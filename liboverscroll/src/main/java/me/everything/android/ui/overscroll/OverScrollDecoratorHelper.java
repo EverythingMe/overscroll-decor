@@ -18,9 +18,6 @@ import me.everything.android.ui.overscroll.adapters.ScrollViewOverScrollDecorAda
 import me.everything.android.ui.overscroll.adapters.StaticOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.ViewPagerOverScrollDecorAdapter;
 
-/**
- * @author amit
- */
 public class OverScrollDecoratorHelper {
 
     public static final int ORIENTATION_VERTICAL = 0;
