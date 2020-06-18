@@ -1,5 +1,6 @@
 package me.everything.overscrolldemo.view;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class DemoRecyclerAdapterHorizontal extends DemoRecyclerAdapterBase {
     }
 
     @Override
+    @NonNull
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new DemoViewHolder(R.layout.horizontal_list_item, parent, mInflater);
     }

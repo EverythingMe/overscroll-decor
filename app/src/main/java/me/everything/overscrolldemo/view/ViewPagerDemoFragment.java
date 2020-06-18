@@ -1,9 +1,10 @@
 package me.everything.overscrolldemo.view;
 
-
-import android.app.Fragment;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.view.Gravity;
@@ -58,6 +59,7 @@ public class ViewPagerDemoFragment extends Fragment {
         }
 
         @Override
+        @NonNull
         public Object instantiateItem(ViewGroup container, int position) {
             TextView textView = new TextView(container.getContext());
             textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
