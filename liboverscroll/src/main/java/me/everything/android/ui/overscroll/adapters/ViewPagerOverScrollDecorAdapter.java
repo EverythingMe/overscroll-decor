@@ -1,8 +1,8 @@
 package me.everything.android.ui.overscroll.adapters;
 
-import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 
+import androidx.viewpager.widget.ViewPager;
 import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
 
 /**
