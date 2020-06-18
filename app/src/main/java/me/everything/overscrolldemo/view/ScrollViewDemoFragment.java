@@ -12,9 +12,6 @@ import android.widget.ScrollView;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.overscrolldemo.R;
 
-/**
- * @author amitd
- */
 public class ScrollViewDemoFragment extends Fragment {
 
     @Nullable

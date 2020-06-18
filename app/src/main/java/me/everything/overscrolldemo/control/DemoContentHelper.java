@@ -7,9 +7,6 @@ import java.util.List;
 
 import me.everything.overscrolldemo.R;
 
-/**
- * @author amit
- */
 public class DemoContentHelper {
 
     private static List<DemoItem> sSpectrumItemsVioletToRed;

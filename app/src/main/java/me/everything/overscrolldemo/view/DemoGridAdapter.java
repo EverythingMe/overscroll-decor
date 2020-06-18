@@ -8,9 +8,6 @@ import java.util.List;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * @author amit
- */
 public class DemoGridAdapter extends DemoListAdapterBase {
 
     protected DemoGridAdapter(LayoutInflater inflater) {

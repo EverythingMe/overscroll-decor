@@ -29,9 +29,6 @@ import me.everything.overscrolldemo.control.DemoContentHelper;
 
 import static me.everything.android.ui.overscroll.IOverScrollState.*;
 
-/**
- * @author amitd
- */
 public class RecyclerViewDemoFragment extends Fragment {
 
     private TextView mHorizScrollMeasure;

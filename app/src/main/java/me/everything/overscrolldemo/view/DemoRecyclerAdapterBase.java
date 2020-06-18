@@ -11,9 +11,6 @@ import java.util.List;
 
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * @author amit
- */
 public abstract class DemoRecyclerAdapterBase extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int COLOR_VIEW_TYPE = 0;

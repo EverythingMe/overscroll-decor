@@ -16,9 +16,6 @@ import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * @author amitd
- */
 public class ListViewDemoFragment extends Fragment {
 
     @Nullable

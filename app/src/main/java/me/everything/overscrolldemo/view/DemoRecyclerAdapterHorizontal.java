@@ -8,9 +8,6 @@ import java.util.List;
 
 import me.everything.overscrolldemo.R;
 
-/**
- * @author amit
- */
 public class DemoRecyclerAdapterHorizontal extends DemoRecyclerAdapterBase {
 
     public DemoRecyclerAdapterHorizontal(LayoutInflater inflater) {

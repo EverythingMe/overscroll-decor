@@ -15,9 +15,6 @@ import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * @author amitd
- */
 public class GridViewDemoFragment extends Fragment {
 
     @Override

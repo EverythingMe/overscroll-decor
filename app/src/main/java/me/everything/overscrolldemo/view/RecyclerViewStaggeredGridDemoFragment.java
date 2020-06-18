@@ -15,9 +15,6 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 
-/**
- * @author amitd
- */
 public class RecyclerViewStaggeredGridDemoFragment extends Fragment {
 
     private static final int GRID_SPAN_COUNT = 2;

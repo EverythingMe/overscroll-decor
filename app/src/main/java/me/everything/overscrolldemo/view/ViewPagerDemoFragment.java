@@ -19,11 +19,6 @@ import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * Created by Bruce too
- * On 2016/6/16
- * At 15:04
- */
 public class ViewPagerDemoFragment extends Fragment {
 
     @Nullable
