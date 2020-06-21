@@ -11,8 +11,6 @@ import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorat
  * <br/>Seeing that {@link HorizontalScrollView} only supports horizontal scrolling, this adapter
  * should only be used with a {@link HorizontalOverScrollBounceEffectDecorator}.
  *
- * @author amit
- *
  * @see HorizontalOverScrollBounceEffectDecorator
  * @see VerticalOverScrollBounceEffectDecorator
  */

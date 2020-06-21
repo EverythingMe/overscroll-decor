@@ -1,9 +1,13 @@
 package me.everything.overscrolldemo.view;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,11 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -28,13 +27,8 @@ import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorA
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 
-import static me.everything.android.ui.overscroll.IOverScrollState.STATE_BOUNCE_BACK;
-import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_END_SIDE;
-import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_START_SIDE;
+import static me.everything.android.ui.overscroll.IOverScrollState.*;
 
-/**
- * @author amitd
- */
 public class RecyclerViewDemoFragment extends Fragment {
 
     private TextView mHorizScrollMeasure;

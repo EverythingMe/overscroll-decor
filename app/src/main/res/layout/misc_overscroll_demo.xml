@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clickable="true"
-        android:text="Practically any clickable widget can be over-scrolled.\n\rTry it!"
+        android:text="Practically any clickable widget can be over-scrolled.\nTry it!"
         android:textSize="30sp"
         android:layout_gravity="center"
         android:gravity="center"

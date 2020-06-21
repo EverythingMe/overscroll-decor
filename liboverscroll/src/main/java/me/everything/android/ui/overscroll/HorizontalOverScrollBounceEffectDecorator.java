@@ -7,8 +7,6 @@ import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
 
 /**
  * A concrete implementation of {@link OverScrollBounceEffectDecoratorBase} for a horizontal orientation.
- *
- * @author amit
  */
 public class HorizontalOverScrollBounceEffectDecorator extends OverScrollBounceEffectDecoratorBase {
 

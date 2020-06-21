@@ -1,8 +1,5 @@
 package me.everything.overscrolldemo.control;
 
-/**
- * @author amit
- */
 public class DemoItem {
 
     private int mColor;

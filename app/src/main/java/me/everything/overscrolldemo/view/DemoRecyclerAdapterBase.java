@@ -1,20 +1,16 @@
 package me.everything.overscrolldemo.view;
 
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * @author amit
- */
 public abstract class DemoRecyclerAdapterBase extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int COLOR_VIEW_TYPE = 0;

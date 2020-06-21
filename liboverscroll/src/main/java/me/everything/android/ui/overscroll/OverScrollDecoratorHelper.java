@@ -1,16 +1,15 @@
 package me.everything.android.ui.overscroll;
 
+import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.viewpager.widget.ViewPager;
 
 import me.everything.android.ui.overscroll.adapters.AbsListViewOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.HorizontalScrollViewOverScrollDecorAdapter;
@@ -19,9 +18,6 @@ import me.everything.android.ui.overscroll.adapters.ScrollViewOverScrollDecorAda
 import me.everything.android.ui.overscroll.adapters.StaticOverScrollDecorAdapter;
 import me.everything.android.ui.overscroll.adapters.ViewPagerOverScrollDecorAdapter;
 
-/**
- * @author amit
- */
 public class OverScrollDecoratorHelper {
 
     public static final int ORIENTATION_VERTICAL = 0;

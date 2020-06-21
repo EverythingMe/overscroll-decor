@@ -3,14 +3,9 @@ package me.everything.android.ui.overscroll.adapters;
 import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
-
 import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
 
 /**
- * Created by Bruce too
- * Enhance by amit
- * On 2016/6/16
- * At 14:51
  * An adapter to enable over-scrolling over object of {@link ViewPager}
  *
  * @see HorizontalOverScrollBounceEffectDecorator

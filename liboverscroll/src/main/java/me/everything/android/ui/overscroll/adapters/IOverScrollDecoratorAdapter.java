@@ -5,8 +5,6 @@ import android.view.View;
 import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator;
 
 /**
- * @author amitd
- *
  * @see HorizontalOverScrollBounceEffectDecorator
  */
 public interface IOverScrollDecoratorAdapter {

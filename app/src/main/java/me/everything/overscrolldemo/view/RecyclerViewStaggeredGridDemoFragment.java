@@ -1,14 +1,13 @@
 package me.everything.overscrolldemo.view;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -16,9 +15,6 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 
-/**
- * @author amitd
- */
 public class RecyclerViewStaggeredGridDemoFragment extends Fragment {
 
     private static final int GRID_SPAN_COUNT = 2;

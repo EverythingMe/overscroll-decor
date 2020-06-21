@@ -18,12 +18,8 @@ import static me.everything.android.ui.overscroll.IOverScrollState.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
-/**
- * @author amitd
- */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class HorizontalOverScrollBounceEffectDecoratorTest {
@@ -34,7 +30,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     IOverScrollUpdateListener mUpdateListener;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mView = mock(View.class);
         mViewAdapter = mock(IOverScrollDecoratorAdapter.class);
         when(mViewAdapter.getView()).thenReturn(mView);
@@ -44,7 +40,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void detach_decoratorIsAttached_detachFromView() throws Exception {
+    public void detach_decoratorIsAttached_detachFromView() {
 
         // Arrange
 
@@ -56,12 +52,12 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
 
         // Assert
 
-        verify(mView).setOnTouchListener(eq((View.OnTouchListener) null));
+        verify(mView).setOnTouchListener(null);
         verify(mView).setOverScrollMode(View.OVER_SCROLL_ALWAYS);
     }
 
     @Test
-    public void detach_overScrollInEffect_detachFromView() throws Exception {
+    public void detach_overScrollInEffect_detachFromView() {
 
         when(mViewAdapter.isInAbsoluteStart()).thenReturn(true);
         when(mViewAdapter.isInAbsoluteEnd()).thenReturn(false);
@@ -75,7 +71,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
 
         // Assert
 
-        verify(mView).setOnTouchListener(eq((View.OnTouchListener) null));
+        verify(mView).setOnTouchListener(null);
         verify(mView).setOverScrollMode(View.OVER_SCROLL_ALWAYS);
     }
 
@@ -84,7 +80,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
      */
 
     @Test
-    public void onTouchMoveAction_notInViewEnds_ignoreTouchEvent() throws Exception {
+    public void onTouchMoveAction_notInViewEnds_ignoreTouchEvent() {
 
         // Arrange
 
@@ -111,7 +107,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void onTouchMoveAction_dragRightInLeftEnd_overscrollRight() throws Exception {
+    public void onTouchMoveAction_dragRightInLeftEnd_overscrollRight() {
 
         // Arrange
 
@@ -139,7 +135,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void onTouchMoveAction_dragLeftInRightEnd_overscrollLeft() throws Exception {
+    public void onTouchMoveAction_dragLeftInRightEnd_overscrollLeft() {
 
         // Arrange
 
@@ -167,7 +163,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void onTouchMoveAction_dragLeftInLeftEnd_ignoreTouchEvent() throws Exception {
+    public void onTouchMoveAction_dragLeftInLeftEnd_ignoreTouchEvent() {
 
         // Arrange
 
@@ -194,7 +190,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void onTouchMoveAction_dragRightInRightEnd_ignoreTouchEvent() throws Exception {
+    public void onTouchMoveAction_dragRightInRightEnd_ignoreTouchEvent() {
 
         // Arrange
 
@@ -221,7 +217,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void onTouchMoveAction_2ndRightDragInLeftEnd_overscrollRightFurther() throws Exception {
+    public void onTouchMoveAction_2ndRightDragInLeftEnd_overscrollRightFurther() {
 
         // Arrange
 
@@ -261,7 +257,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void onTouchMoveAction_2ndLeftDragInRightEnd_overscrollLeftFurther() throws Exception {
+    public void onTouchMoveAction_2ndLeftDragInRightEnd_overscrollLeftFurther() {
 
         // Arrange
 
@@ -307,7 +303,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
      * remain in effect</b>.
      */
     @Test
-    public void onTouchMoveAction_dragLeftWhenRightOverscolled_continueOverscrollingLeft() throws Exception {
+    public void onTouchMoveAction_dragLeftWhenRightOverscolled_continueOverscrollingLeft() {
 
         // Arrange
 
@@ -357,7 +353,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
      * <br/>We expect the <b>touch to still be intercepted</b> in that case, and the <b>overscroll to remain in effect</b>.
      */
     @Test
-    public void onTouchMoveAction_dragRightWhenLeftOverscolled_continueOverscrollingRight() throws Exception {
+    public void onTouchMoveAction_dragRightWhenLeftOverscolled_continueOverscrollingRight() {
 
         // Arrange
 
@@ -402,7 +398,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void onTouchMoveAction_undragWhenRightOverscrolled_endOverscrolling() throws Exception {
+    public void onTouchMoveAction_undragWhenRightOverscrolled_endOverscrolling() {
 
         // Arrange
 
@@ -446,7 +442,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
     }
 
     @Test
-    public void onTouchMoveAction_undragWhenLeftOverscrolled_endOverscrolling() throws Exception {
+    public void onTouchMoveAction_undragWhenLeftOverscrolled_endOverscrolling() {
 
         // Arrange
 
@@ -495,7 +491,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
      */
 
     @Test
-    public void onTouchUpAction_eventWhenNotOverscrolled_ignoreTouchEvent() throws Exception {
+    public void onTouchUpAction_eventWhenNotOverscrolled_ignoreTouchEvent() {
 
         // Arrange
 
@@ -527,7 +523,7 @@ public class HorizontalOverScrollBounceEffectDecoratorTest {
      */
     @Ignore
     @Test
-    public void onTouchUpAction_eventWhenLeftOverscrolling_smoothScrollBackToRightEnd() throws Exception {
+    public void onTouchUpAction_eventWhenLeftOverscrolling_smoothScrollBackToRightEnd() {
 
         // Arrange
 

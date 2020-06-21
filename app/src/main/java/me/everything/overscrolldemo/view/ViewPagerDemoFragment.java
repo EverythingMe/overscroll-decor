@@ -1,17 +1,17 @@
 package me.everything.overscrolldemo.view;
 
-
-import android.app.Fragment;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import java.util.List;
 
@@ -20,11 +20,6 @@ import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * Created by Bruce too
- * On 2016/6/16
- * At 15:04
- */
 public class ViewPagerDemoFragment extends Fragment {
 
     @Nullable
@@ -46,7 +41,7 @@ public class ViewPagerDemoFragment extends Fragment {
         OverScrollDecoratorHelper.setUpOverScroll(viewPager);
     }
 
-    public static class ViewPagerAdapter extends PagerAdapter {
+    public static class ViewPagerAdapter extends PagerAdapter{
 
         private List<DemoItem> items;
         public ViewPagerAdapter(List<DemoItem> items){
@@ -64,6 +59,7 @@ public class ViewPagerDemoFragment extends Fragment {
         }
 
         @Override
+        @NonNull
         public Object instantiateItem(ViewGroup container, int position) {
             TextView textView = new TextView(container.getContext());
             textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));

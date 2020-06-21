@@ -15,7 +15,7 @@ Add the following to your module's `build.gradle` file:
 dependencies {
     // ...
     
-    compile 'me.everything:overscroll-decor-android:1.0.4'
+    compile 'me.everything:overscroll-decor-android:1.1.0'
 }
 ```
 

@@ -1,21 +1,17 @@
 package me.everything.overscrolldemo.view;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
 
-import androidx.annotation.Nullable;
-
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.overscrolldemo.R;
 
-/**
- * @author amitd
- */
 public class ScrollViewDemoFragment extends Fragment {
 
     @Nullable

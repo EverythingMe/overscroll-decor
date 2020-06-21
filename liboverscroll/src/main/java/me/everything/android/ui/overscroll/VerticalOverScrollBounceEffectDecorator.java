@@ -7,8 +7,6 @@ import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter;
 
 /**
  * A concrete implementation of {@link OverScrollBounceEffectDecoratorBase} for a vertical orientation.
- *
- * @author amit
  */
 public class VerticalOverScrollBounceEffectDecorator extends OverScrollBounceEffectDecoratorBase {
 

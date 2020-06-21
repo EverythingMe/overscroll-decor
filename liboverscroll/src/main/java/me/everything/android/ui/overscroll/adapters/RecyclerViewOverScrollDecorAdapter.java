@@ -1,12 +1,11 @@
 package me.everything.android.ui.overscroll.adapters;
 
 import android.graphics.Canvas;
-import android.view.View;
-
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import android.view.View;
 
 import java.util.List;
 
@@ -14,8 +13,6 @@ import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecor
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 
 /**
- * @author amitd
- *
  * @see HorizontalOverScrollBounceEffectDecorator
  * @see VerticalOverScrollBounceEffectDecorator
  */

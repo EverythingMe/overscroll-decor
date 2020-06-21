@@ -1,6 +1,6 @@
 package me.everything.overscrolldemo.view;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +15,6 @@ import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * @author amitd
- */
 public class GridViewDemoFragment extends Fragment {
 
     @Override

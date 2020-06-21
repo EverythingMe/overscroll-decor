@@ -1,6 +1,6 @@
 package me.everything.overscrolldemo.view;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +10,6 @@ import android.widget.Chronometer;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import me.everything.overscrolldemo.R;
 
-/**
- * @author amitd
- */
 public class MiscViewsDemoFragment extends Fragment {
 
     private static final String CHRONO_TIME_SAVE_ID = "chronoTime";

@@ -1,16 +1,14 @@
 package me.everything.overscrolldemo;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.view.MenuItem;
-
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import com.google.android.material.navigation.NavigationView;
+import android.view.MenuItem;
 
 import me.everything.overscrolldemo.view.GridViewDemoFragment;
 import me.everything.overscrolldemo.view.ListViewDemoFragment;
@@ -37,14 +35,14 @@ public class OverScrollDemoActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.drawer_nav);
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_placeholder, new RecyclerViewDemoFragment())
                     .commit();
         }
@@ -60,7 +58,6 @@ public class OverScrollDemoActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         final int id = item.getItemId();
@@ -99,7 +96,7 @@ public class OverScrollDemoActivity extends AppCompatActivity
     }
 
     private void replaceMainFragment(Fragment fragment, int titleResId) {
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(R.animator.fade_in_slow, R.animator.fade_out_quick)
                 .replace(R.id.fragment_placeholder, fragment)
                 .commit();

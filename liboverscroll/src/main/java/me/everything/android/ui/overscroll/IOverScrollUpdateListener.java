@@ -4,8 +4,6 @@ package me.everything.android.ui.overscroll;
  * A callback-listener enabling over-scroll effect clients to subscribe to <b>real-time</b> updates
  * of over-scrolling intensity, provided as the view-translation offset from pre-scroll position.
  *
- * @author amit
- *
  * @see IOverScrollStateListener
  */
 public interface IOverScrollUpdateListener {

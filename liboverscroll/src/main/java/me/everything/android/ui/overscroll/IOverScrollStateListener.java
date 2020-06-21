@@ -6,8 +6,6 @@ package me.everything.android.ui.overscroll;
  * {@link IOverScrollState#STATE_DRAG_START_SIDE}, {@link IOverScrollState#STATE_DRAG_END_SIDE}
  * or {@link IOverScrollState#STATE_BOUNCE_BACK}.
  *
- * @author amit
- *
  * @see IOverScrollUpdateListener
  */
 public interface IOverScrollStateListener {

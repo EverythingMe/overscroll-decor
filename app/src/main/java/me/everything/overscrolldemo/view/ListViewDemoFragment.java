@@ -1,14 +1,13 @@
 package me.everything.overscrolldemo.view;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -17,9 +16,6 @@ import me.everything.overscrolldemo.R;
 import me.everything.overscrolldemo.control.DemoContentHelper;
 import me.everything.overscrolldemo.control.DemoItem;
 
-/**
- * @author amitd
- */
 public class ListViewDemoFragment extends Fragment {
 
     @Nullable
