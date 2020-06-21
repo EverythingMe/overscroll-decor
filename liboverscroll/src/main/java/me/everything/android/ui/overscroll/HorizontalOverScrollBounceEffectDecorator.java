@@ -85,7 +85,8 @@ public class HorizontalOverScrollBounceEffectDecorator extends OverScrollBounceE
      * @param positiveMaxOverScrollDistance maximum allowed distance for overScroll from left/start.
      * @param negativeMaxOverScrollDistance maximum allowed distance for overScroll from right/end.
      */
-    public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter, float positiveMaxOverScrollDistance,
+    public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter,
+                                                     float positiveMaxOverScrollDistance,
                                                      float negativeMaxOverScrollDistance) {
         this(viewAdapter, DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD, DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK,
                 DEFAULT_DECELERATE_FACTOR, positiveMaxOverScrollDistance, negativeMaxOverScrollDistance);
@@ -100,7 +101,8 @@ public class HorizontalOverScrollBounceEffectDecorator extends OverScrollBounceE
      * @param viewAdapter The view's encapsulation.
      * @param maxOverScrollDistance maximum allowed distance for overScroll from any direction.
      */
-    public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter, float maxOverScrollDistance) {
+    public HorizontalOverScrollBounceEffectDecorator(IOverScrollDecoratorAdapter viewAdapter,
+                                                     float maxOverScrollDistance) {
         this(viewAdapter, DEFAULT_TOUCH_DRAG_MOVE_RATIO_FWD, DEFAULT_TOUCH_DRAG_MOVE_RATIO_BCK,
                 DEFAULT_DECELERATE_FACTOR, maxOverScrollDistance);
     }
