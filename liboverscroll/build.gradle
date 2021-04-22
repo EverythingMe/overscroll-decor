@@ -27,26 +27,7 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.3.1'
 }
 
-
-// Running from Gradle tab in IDE would create liboverscroll/build/lib/liboverscroll-sources.jar
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-// Running from Gradle tab in IDE would create liboverscroll/build/lib/liboverscroll-javadoc.jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
+// Enable publishing
+if (rootProject.hasProperty('_isOverscrollDecor')) {
+    apply from: './publishing.gradle'
 }
