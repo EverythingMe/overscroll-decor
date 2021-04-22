@@ -1,6 +1,14 @@
+> **Announcement**
+>
+> An update regarding Bintray's shutdown: The library has been successfuly republished onto maven central, but with a different Group ID; Please update your Gradle dependencies as follows:
+>
+> ```diff
+> -implementation 'me.everything:overscroll-decor-android:1.1.0'
+> +implementation 'io.github.everythingme:overscroll-decor-android:1.1.1'
+> ```
 
 # Over-Scroll Support For Android's RecyclerView, ListView, GridView, ScrollView ...
- 
+
 The library provides an iOS-like over-scrolling effect applicable over almost all Android native scrollable views. It is also built to allow for very easy adaptation to support custom views.
 
 The core effect classes are loose-[decorators](https://en.wikipedia.org/wiki/Decorator_pattern) of Android views, and are thus decoupled from the actual view classes' implementations. That allows developers to apply the effect over views while keeping them as untampered 'black-boxes'. Namely, it allows for keeping important optimizations such as view-recycling intact.
@@ -15,7 +23,7 @@ Add the following to your module's `build.gradle` file:
 dependencies {
     // ...
     
-    compile 'me.everything:overscroll-decor-android:1.1.0'
+    implementation 'io.github.everythingme:overscroll-decor-android:1.1.1'
 }
 ```
 
