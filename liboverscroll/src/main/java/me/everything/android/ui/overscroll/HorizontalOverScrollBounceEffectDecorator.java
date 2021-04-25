@@ -23,6 +23,9 @@ public class HorizontalOverScrollBounceEffectDecorator extends OverScrollBounceE
             // Allow for counter-orientation-direction operations (e.g. item swiping) to run fluently.
             final float dy = event.getY(0) - event.getHistoricalY(0, 0);
             final float dx = event.getX(0) - event.getHistoricalX(0, 0);
+            if (dx == 0 && dy == 0) {
+                return false;
+            }
             if (Math.abs(dx) < Math.abs(dy)) {
                 return false;
             }
