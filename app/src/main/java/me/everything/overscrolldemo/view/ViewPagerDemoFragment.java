@@ -35,6 +35,7 @@ public class ViewPagerDemoFragment extends Fragment {
     }
 
     private void initHorizontalViewPager(List<DemoItem> items, ViewPager viewPager) {
+        viewPager.setPageMargin(20);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(items);
         viewPager.setAdapter(adapter);

@@ -12,9 +12,10 @@ import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecor
  */
 public class ViewPagerOverScrollDecorAdapter implements IOverScrollDecoratorAdapter, ViewPager.OnPageChangeListener {
 
+    private static final float APPROXIMATELY_EQUAL_DELTA = 0.01f;
+
     protected final ViewPager mViewPager;
 
-    protected int mLastPagerPosition = 0;
     protected float mLastPagerScrollOffset;
 
     public ViewPagerOverScrollDecorAdapter(ViewPager viewPager) {
@@ -22,7 +23,6 @@ public class ViewPagerOverScrollDecorAdapter implements IOverScrollDecoratorAdap
 
         mViewPager.addOnPageChangeListener(this);
 
-        mLastPagerPosition = mViewPager.getCurrentItem();
         mLastPagerScrollOffset = 0f;
     }
 
@@ -33,31 +33,31 @@ public class ViewPagerOverScrollDecorAdapter implements IOverScrollDecoratorAdap
 
     @Override
     public boolean isInAbsoluteStart() {
-
-        return mLastPagerPosition == 0 &&
-                mLastPagerScrollOffset == 0f;
+        return mViewPager.getCurrentItem() == 0 && isApproximatelyEquals(mLastPagerScrollOffset, 0f);
     }
 
     @Override
     public boolean isInAbsoluteEnd() {
-
-        return mLastPagerPosition == mViewPager.getAdapter().getCount()-1 &&
-                mLastPagerScrollOffset == 0f;
+        return mViewPager.getCurrentItem() == mViewPager.getAdapter().getCount() - 1 &&
+                (isApproximatelyEquals(mLastPagerScrollOffset, 0f) || isApproximatelyEquals(mLastPagerScrollOffset, 1f));
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        mLastPagerPosition = position;
         mLastPagerScrollOffset = positionOffset;
     }
 
     @Override
     public void onPageSelected(int position) {
-
+        
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private static boolean isApproximatelyEquals(float first, float second) {
+        return Math.abs(second - first) < APPROXIMATELY_EQUAL_DELTA;
     }
 }
